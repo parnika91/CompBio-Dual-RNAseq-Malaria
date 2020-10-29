@@ -323,52 +323,5 @@ unique_ungrouped_rs_runs <- dbGetQuery(db, paste("SELECT *, count(*) AS Runs FRO
 
 write.table(unique_ungrouped_rs_runs, "unique_ungrouped_rs_runs.txt", sep = "\t", row.names = FALSE)
 
-# 3886 - 134 rows
-# new_unique_ungrouped_rs_runs <- unique_ungrouped_rs_runs[-unique_rows,] # has no experiments related to malaria
-
-# exclusion of undesired experiments
-
-# Black_list <- c("ERP009392","ERP010191","SRP044861", "SRP070962", "SRP075802","SRP072137", "ERP004042", "SRP065966","ERP017920", "ERP005133", "ERP011524", "SRP028164", "SRP071926", "SRP066121", "SRP067884", "SRP067891", "SRP026535", "SRP078950", "SRP031506", "SRP075558", "SRP099346", "SRP103209", "SRP098800", "ERP012913","SRP009381", "DRP003241", "SRP055084", "SRP064783", "SRP067399", "ERP012209", "ERP001997", "SRP012327", "SRP050131", "ERP013211", "ERP004232", "ERP006797", "SRP012496", "SRP003813", "ERP005571", "ERP005646", "ERP005856", "ERP006110", "ERP021698", "ERP001849", "SRP063489", "SRP045347", "SRP070748", "SRP044683", "ERP020038", "SRP003507", "SRP016856", "SRP019362", "SRP034011", "SRP043116", "SRP048710", "SRP048711", "SRP055417", "SRP058108", "SRP058195", "SRP067125", "SRP073610", "SRP073801", "SRP079357", "SRP098628", "SRP013839", "SRP018078", "SRP028885", "SRP038137", "SRP045243", "SRP062654", "SRP068605", "SRP077596", "SRP082548", "SRP106793", "ERP016804", "ERP001696", "ERP101091", "ERP010044", "ERP010806", "SRP033414", "SRP043322", "SRP069075", "SRP106064", "SRP099925", "SRP013741", "SRP008152", "SRP115504", "SRP106032", "SRP090611", "SRP014155", "ERP001455", "ERP004740", "SRP009370", "SRP100893", "SRP090342", "SRP048791", "SRP026367", "SRP021890", "SRP017623")
-# # 99 in black list
-# remove_black_list <- c()
-# for(i in 1:length(Black_list))
-# {
-#   remove_black_list <- c(remove_black_list, grep(Black_list[i], as.vector(check_unique_ungrouped_rs_runs[,"study"])))
-# }
-
 dbDisconnect(db, sra_con)
-
-White_list <- c("DRP000987", "ERP004042", "SRP066796", "SRP070748", "ERP002116", "SRP018945", "SRP083918", "SRP094565", "SRP102683", "ERP004598", "ERP014302", "SRP110609", "SRP116117", "SRP029990", "SRP032775", "SRP034011", "SRP073801", "SRP074580", "SRP075802", "SRP106638", "SRP106798", "SRP108356", "SRP116593", "SRP116793", "SRP118503", "SRP118827", "SRP118996", "ERP021024", "ERP020067", "ERP004868", "ERP002273", "SRP059851", "SRP110282", "ERP005730", "SRP056443")
-
-
-select_positive_studies <- function(White_list, check_unique_ungrouped_rs_runs)
-{
-  a <- nrow(check_unique_ungrouped_rs_runs)
-  b <- length(White_list)
-  c <- c()
-
-  for(i in 1:b)
-  {
-    c[i] <- grep(White_list[i], as.vector(check_unique_ungrouped_rs_runs[,"study"]))
-  }
-
-  positive_studies <- check_unique_ungrouped_rs_runs[c,]
-
-  return (positive_studies)
-}
-
-positive_studies <- select_positive_studies(White_list, check_unique_ungrouped_rs_runs)
-
-range(positive_studies[, "Runs"])
-sum(positive_studies[, "Runs"])
-# 35 experiments in white list -> 4376 runs: Range -> 1 - 1598 ----> not all are published
-write.table(positive_studies, "positive_studies.txt", sep = "\t", row.names = FALSE)
-save(positive_studies, file = "positive_studies.RData")
-
-positive_experiments <- positive_studies[,"study"] # extract experiment IDs
-l <- length(positive_experiments)
-
-write.table(positive_experiments, "positive_experiments.txt", sep = "\t", row.names = FALSE, col.names = FALSE, quote = FALSE)
-save(positive_experiments, file ="positive_experiments.RData")
-
 # To check status: https://www.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA432151&go=go
