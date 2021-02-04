@@ -1,4 +1,4 @@
-# To perform GO analysis with topGO package from Bioconductor
+# Script to perform GO analysis with topGO package from Bioconductor
 # to do this, we first need to do cexpression analysis, and get the genes in the network
 # Here I have found enriched GO terms for the bipartite part of the network
 
@@ -163,8 +163,7 @@ host_genes <- unique(as.character(net[,1]))
 write.table(para_genes, paste0(studyID, "/", studyID, "_para_genes.txt", collapse = ''), quote = F, row.names = F)
 write.table(host_genes, paste0(studyID, "/", studyID, "_host_genes.txt", collapse = ''), quote = F, row.names = F)
 
-pOG <- read.delim("~/Documents/Data/parasite_orthogroups.txt", 
-                                   stringsAsFactors=FALSE)
+pOG <- read.delim("parasite_orthogroups.txt", stringsAsFactors=FALSE)
 
 bip_studies <- studyID
 
@@ -196,7 +195,7 @@ for(m in 1:length(bip_studies))
      
     geneID2GO <- readMappings(file = "topGO/p_OG_GOterms.txt") # 3659 genes
     
-    para_genes <- read.delim(paste0("~/Documents/Data/", study ,"_para_genes.txt",
+    para_genes <- read.delim(paste0(study ,"_para_genes.txt",
                                   collapse = ""), stringsAsFactors=FALSE, header = T)
 
     # parasite genes of interest
@@ -222,11 +221,6 @@ for(m in 1:length(bip_studies))
     resultKS=runTest(GOdata, algorithm='weight01', statistic='Fisher') 
     allGO=usedGO(GOdata)
     all_res=GenTable(GOdata, Fisher=resultKS, orderBy="Fisher", topNodes=length(allGO))
-    #par(cex = 0.4)
-    ## Plotting results
-    #showSigOfNodes(GOdata, score(resultKS), firstSigNodes = 5, useInfo ='all')
-    ##red: significant, yellow = not sig
-    #printGraph(GOdata, resultKS, firstSigNodes = 5, fn.prefix = paste0("tGO_", study,"_parasite_", GeneOnt, collapse = ''), useInfo = "all", pdfSW = TRUE)
     
     # Get genes in a particular GO term:
     GenesForGOterm <- c()
@@ -245,41 +239,8 @@ for(m in 1:length(bip_studies))
     all_res$GenesForGOterm <- GenesForGOterm
     write.table(all_res, paste0("p_OG_topGO_", GeneOnt,"_", study, "_para_result.txt", collapse = ''), sep = '\t', row.names = F)
     
-    goEnrichment <- all_res[all_res$KS<0.05,]
-    goEnrichment <- goEnrichment[,c("GO.ID","Term","KS", "Significant")]
-    goEnrichment$Term <- gsub(" [a-z]*\\.\\.\\.$", "", goEnrichment$Term)
-    goEnrichment$Term <- gsub("\\.\\.\\.$", "", goEnrichment$Term)
-    goEnrichment$Term <- paste(goEnrichment$GO.ID, goEnrichment$Term, sep=", ")
-    goEnrichment$Term <- factor(goEnrichment$Term, levels=rev(goEnrichment$Term))
-    goEnrichment$KS <- as.numeric(goEnrichment$KS)
-    
-    ggplot(goEnrichment, aes(x=Term, y=log10(Significant), fill = KS)) +
-      stat_summary(geom = "bar", width = 0.5, fun = mean, position = "dodge") +
-      xlab("Molecular Function") +
-      ylab("Number of parasite genes in GO term") +
-      ggtitle("Significant Plasmodium GOterms") +
-      #scale_y_continuous(breaks = round(seq(0, max(-log10(goEnrichment$KS)), by = 2), 1)) +
-      theme_bw(base_size=20) +
-      theme(
-        #legend.position='none',
-        #legend.background=element_rect(),
-        plot.title=element_text(angle=0, size=20, face="bold", vjust=1),
-        axis.text.x=element_text(angle=0, size=20, face="bold", hjust=1.10),
-        axis.text.y=element_text(angle=0, size=20, face="bold", vjust=0.5),
-        axis.title=element_text(size=20, face="bold"),
-        #legend.key=element_blank(),     #removes the border
-        #legend.key.size=unit(1, "cm"),      #Sets overall area/size of the legend
-        #legend.text=element_text(size=8),  #Text size
-        title=element_text(size=18)) +
-      #guides(colour=guide_legend(override.aes=list(size=2.5))) +
-      coord_flip()
-      ggsave(paste0(study, "_", GeneOnt, "_p_OG_Enrichment.png"), height = 30, width = 45, units = "cm")
-      
-
-
     # Host
     # Background genes
-    ############################################## good code ################
     host_genes <- read.delim(paste0("~/Documents/Data/", study ,"_host_genes.txt",
                                   collapse = ""), header =T,
                            stringsAsFactors=FALSE)
@@ -290,25 +251,6 @@ for(m in 1:length(bip_studies))
     host_in <- unique(as.character(host_in[,2]))
     
     host_bg <- host_orthogroups[,3]
-    ########################################################################
-
-    ### The code here might work but I didn't end up using it
-    
-    # library(biomaRt)
-    # getBM() wasn't returning results
-    # ensembl <- useMart("ensembl")
-    # datasets <- listDatasets(ensembl)
-    # ensembl = useDataset("mmusculus_gene_ensembl",mart=ensembl)
-    # go_ids = getBM(attributes=c('go_id', 'external_gene_name', 'namespace_1003'), 
-    #               filters='external_gene_name', values=host_bg, mart=ensembl)
-    
-    # downloaded dataset from biomart webpage
-    # Mmus_annot <- read.delim("~/Downloads/Mmus_annot.txt", stringsAsFactors=FALSE)
-    # Mmus_annot <- Mmus_annot[-which(Mmus_annot[,3]==""),c(1,3)]
-    # Mmus_annot <- aggregate(Mmus_annot$GO.term.accession, Mmus_annot['Gene.stable.ID'],paste,collapse=', ')
-    # write.table(Mmus_annot, "Mmus_agg_annot.txt", row.names = F, sep = "\t", quote = F)
-    
-    ##################### good code ##################################
     h_geneList <- as.integer(host_bg %in% host_in)
     names(h_geneList) <- host_bg
     
@@ -332,14 +274,6 @@ for(m in 1:length(bip_studies))
     all_res=GenTable(hGOdata, Fisher=resultKS, orderBy="Fisher", topNodes=length(allGO))
     ################################################################
     
-    # Plotting results
-    #par(cex = 0.4)
-    #showSigOfNodes(hGOdata, score(resultKS), firstSigNodes = 5, useInfo ='all')
-    # # # red: significant, yellow = not sig
-    #printGraph(hGOdata, resultKS, firstSigNodes = 5, fn.prefix = paste0("tGO_", study,"_host_", GeneOnt, collapse = ''), useInfo = "all", pdfSW = TRUE)
-    ############################
-    #
-    # # Get genes in a particular GO term:
     GenesForGOterm <- c()
     myterms = all_res$GO.ID
     mygenes <- genesInTerm(hGOdata, myterms)
@@ -353,37 +287,6 @@ for(m in 1:length(bip_studies))
     
     all_res$GenesForGOterm <- GenesForGOterm
     write.table(all_res, paste0("Mmus_topGO_", GeneOnt,"_", study, "_host_result.txt", collapse = ''), sep = '\t', row.names = F)
-    
-    goEnrichment <- all_res[all_res$KS<0.05,]
-    goEnrichment <- goEnrichment[,c("GO.ID","Term","KS", "Significant")]
-    goEnrichment$Term <- gsub(" [a-z]*\\.\\.\\.$", "", goEnrichment$Term)
-    goEnrichment$Term <- gsub("\\.\\.\\.$", "", goEnrichment$Term)
-    goEnrichment$Term <- paste(goEnrichment$GO.ID, goEnrichment$Term, sep=", ")
-    goEnrichment$Term <- factor(goEnrichment$Term, levels=rev(goEnrichment$Term))
-    goEnrichment$KS <- as.numeric(goEnrichment$KS)
-    
-    ggplot(goEnrichment, aes(x=Term, y=Significant, fill = KS)) +
-      stat_summary(geom = "bar", width = 0.3, fun = mean, position = "dodge") +
-      xlab(GeneOnt) +
-      ylab("Number of host genes in GO term") +
-      ggtitle(study) +
-      #scale_y_continuous(breaks = round(seq(0, max(-log10(goEnrichment$KS)), by = 2), 1)) +
-      theme_bw(base_size=14) +
-      theme(
-        #legend.position='none',
-        #legend.background=element_rect(),
-        plot.title=element_text(angle=0, size=10, face="bold", vjust=1),
-        axis.text.x=element_text(angle=0, size=10, face="bold", hjust=1.10),
-        axis.text.y=element_text(angle=0, size=10, face="bold", vjust=0.5),
-        axis.title=element_text(size=10, face="bold"),
-        #legend.key=element_blank(),     #removes the border
-        #legend.key.size=unit(1, "cm"),      #Sets overall area/size of the legend
-        #legend.text=element_text(size=8),  #Text size
-        title=element_text(size=8)) +
-      #guides(colour=guide_legend(override.aes=list(size=2.5))) +
-      coord_flip()
-    ggsave(paste0(study, "_", GeneOnt, "_host_Enrichment.png"), height = 20, width = 20, units = "cm")
-    
   }
 }
 
