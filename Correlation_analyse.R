@@ -1,3 +1,7 @@
+# Script to calculate permutation scores (uncorrected p-values) after performing the permutation tests
+# The permutation test script, Corelation_dataset.R, creates files with 10000 permutations each.
+# These need to be summmed up and then analysed.
+
 # function to assign an RData object to a name
 # https://stackoverflow.com/questions/5577221/how-can-i-load-an-object-into-a-variable-name-that-i-specify-from-an-r-data-file
 loadRData <- function(fileName){
