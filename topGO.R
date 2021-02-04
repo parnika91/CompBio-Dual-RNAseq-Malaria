@@ -157,7 +157,7 @@ args <- commandArgs(TRUE)
 studyID <- args[1]
 dataset <- args[2] #, eg DRP000987_str_bipartite.RData
 
-net <- loadRData(paste0(studyID, "/", dataset, ".RData"), collapse = '')
+net <- loadRData(paste0(studyID, "/", dataset, ".RData", collapse = ''))
 para_genes <- unique(as.character(net[,2]))
 host_genes <- unique(as.character(net[,1]))
 write.table(para_genes, paste0(studyID, "/", studyID, "_para_genes.txt", collapse = ''), quote = F, row.names = F)
@@ -219,9 +219,9 @@ for(m in 1:length(bip_studies))
     # The column Expected represents the expected number of interesting genes mapped to the 
     # GO term if the interesting genes were randomly distributed over all GO terms.
     
-    resultKS=runTest(GOdata, algorithm='weight01', statistic='KS') 
+    resultKS=runTest(GOdata, algorithm='weight01', statistic='Fisher') 
     allGO=usedGO(GOdata)
-    all_res=GenTable(GOdata, KS=resultKS, orderBy="KS", topNodes=length(allGO))
+    all_res=GenTable(GOdata, Fisher=resultKS, orderBy="Fisher", topNodes=length(allGO))
     #par(cex = 0.4)
     ## Plotting results
     #showSigOfNodes(GOdata, score(resultKS), firstSigNodes = 5, useInfo ='all')
@@ -327,9 +327,9 @@ for(m in 1:length(bip_studies))
                    mapping = "org.Mm.eg",
                    ID = "ensembl")
     
-    resultKS=runTest(hGOdata, algorithm='weight01', statistic='KS')
+    resultKS=runTest(hGOdata, algorithm='weight01', statistic='Fisher')
     allGO=usedGO(hGOdata)
-    all_res=GenTable(hGOdata, KS=resultKS, orderBy="KS", topNodes=length(allGO))
+    all_res=GenTable(hGOdata, Fisher=resultKS, orderBy="Fisher", topNodes=length(allGO))
     ################################################################
     
     # Plotting results
