@@ -1,3 +1,5 @@
+# Script to quantify gene counts from BAM files after mapping fastq sequences with STAR
+
 require(GenomicRanges)
 require(GenomicFeatures)
 require(GenomicAlignments)
