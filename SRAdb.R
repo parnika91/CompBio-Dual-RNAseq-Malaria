@@ -1,3 +1,5 @@
+### Script to use SRAdb to query SRA for dual RNA-seq malaria studies
+
 # libraries
 source("https://bioconductor.org/biocLite.R")
 biocLite("SRAdb")
