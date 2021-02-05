@@ -33,30 +33,6 @@ edge_counter$edge_rowsums <- edge_rowsums
 
 #####################################################################################################
 
-############ Making the core network ################
-# Core network definition: the edge has to be present in the overall network, in at least 1 human network and in at least 1 network from another host organism
-# We ensure the presence in the overall network in the construction of "edge_counter": all the edges there are definitely present in the overall network
-
-# to make sure that an edge in the core network is present in at least one human dataset
-human_edges <- edge_counter[(!is.na(edge_counter$ERP106451_c) | !is.na(edge_counter$DRP000987_c) | 
-  !is.na(edge_counter$hpv_c) | !is.na(edge_counter$SRP032775_c) | !is.na(edge_counter$SRP233153_c) | !is.na(edge_counter$ERP023982_c)),]
-
-# to make sure that an edge in the core network is present in at least one other host organism dataset - so that the edge is not just present in the human dataset
-core_edges <- human_edges[(!is.na(human_edges$ERP110375_c) | !is.na(human_edges$ERP004598_c) | !is.na(human_edges$mbl_c) | 
-!is.na(human_edges$SRP118827_c) | !is.na(human_edges$SRP116793_c) | !is.na(human_edges$SRP116593_c) | !is.na(human_edges$SRP118996_c) | 
-!is.na(human_edges$SRP108356_c) | !is.na(human_edges$SRP118503_c)),]
-
-# separate the names of the genes in the interaction pair joined by underscores
-hp <- strsplit(sub('(^[^_]+_[^_]+)_(.*)$', '\\1 \\2', core_edges$hp), ' ')
-
-h <- sapply(hp, function(x) x[[1]])
-p <- sapply(hp, function(x) x[[2]])
-blood_core_network <- data.frame(host = h, parasite = p, e[,2:ncol(e)])
-
-saveRDS(blood_core_network, file = "blood_core_network.rds")
-
-#####################################################################################################
-
 # finding edges present in multiple datasets
 e_1 <- edge_counter[edge_counter$edge_rowsums == 1,] #present only in the overall network
 e_4 <- edge_counter[edge_counter$edge_rowsums == 4,] #present only in the overall+3 networks
@@ -91,3 +67,41 @@ plot(ig, vertex.color = V(ig)$color,
      edge.width = 8,
      edge.curved=TRUE,)
 dev.off()
+
+#####################################################################################################
+
+############ Making the core network ################
+# Core network definition: the edge has to be present in the overall network, 
+# in at least 1 human network and in at least 1 network from another host organism
+# We ensure the presence in the overall network in the construction of "edge_counter": 
+# all the edges there are definitely present in the overall network
+
+# to make sure that an edge in the core network is present in at least one human dataset
+human_edges <- edge_counter[(!is.na(edge_counter$ERP106451_c) | !is.na(edge_counter$DRP000987_c) | 
+  !is.na(edge_counter$hpv_c) | !is.na(edge_counter$SRP032775_c) | !is.na(edge_counter$SRP233153_c) | !is.na(edge_counter$ERP023982_c)),]
+
+# to make sure that an edge in the core network is present in at least one other host organism dataset - 
+# so that the edge is not just present in the human dataset
+core_edges <- human_edges[(!is.na(human_edges$ERP110375_c) | !is.na(human_edges$ERP004598_c) | !is.na(human_edges$mbl_c) | 
+!is.na(human_edges$SRP118827_c) | !is.na(human_edges$SRP116793_c) | !is.na(human_edges$SRP116593_c) | !is.na(human_edges$SRP118996_c) | 
+!is.na(human_edges$SRP108356_c) | !is.na(human_edges$SRP118503_c)),]
+
+# separate the names of the genes in the interaction pair joined by underscores
+hp <- strsplit(sub('(^[^_]+_[^_]+)_(.*)$', '\\1 \\2', core_edges$hp), ' ')
+
+h <- sapply(hp, function(x) x[[1]])
+p <- sapply(hp, function(x) x[[2]])
+blood_core_network <- data.frame(host = h, parasite = p, weight = core_edges$edge_rowsums)
+
+saveRDS(blood_core_network, file = "blood_core_network.rds") # with orthogroups
+
+#### convert orthogroups to ensembl and PlasmoDB IDs
+pOG <- read.delim("parasite_orthogroups.txt", stringsAsFactors=FALSE)
+hOG <- read.delim("host_orthogroups.txt", stringsAsFactors=FALSE)
+
+host <- sapply(h, function(x) hOG[hOG$Orthogroup %in% x, "human"])
+parasite <- sapply(p, function(x) pOG[pOG$Orthogroup %in% x, "Pberghei"])
+
+blood_core_network_IDs <- data.frame(host = host, parasite = parasite, weight = core_edges$edge_rowsums)
+saveRDS(blood_core_network_IDs, file = "blood_core_network_IDs.rds") # with gene IDs
+write.csv(blood_core_network_IDs, "blood_core_network_IDs.csv", row.names = F, quote = F)
