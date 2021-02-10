@@ -1,6 +1,6 @@
 # Script to find modules in the network; 
 # locate immune cell marker genes and
-# calculate the enrichment of these marker sin the network
+# calculate the enrichment of these markers in the network
 
 
 library(igraph)
@@ -8,8 +8,13 @@ library(grid)
 library(limma)
 library(EnsDb.Hsapiens.v79)
 
+options(echo=TRUE)
+args <- commandArgs(TRUE)
+dataset <- args[1] #, eg blood_all_bipartite for overall and blood_core_network for core network
+
 ############################# communities
-data <- readRDS("blood_core_network.rds")
+network <- dataset
+data <- readRDS(paste0(network, ".rds"), collapse = '')
 
 ig <- graph_from_data_frame(data, directed = F)
 vnames = c(unique(as.character(data[,1])), unique(as.character(data[,2])))
@@ -132,9 +137,9 @@ for(i in 1:nrow(clusters))
 
 clusters <- data.frame(Gene = ens_commSummary$ens, Membership = ens_commSummary$community, Marker = cell_marker)
 # save to use in network in Cytoscape
-write.csv(clusters, "core_network_betweenness_communities.csv", row.names = F, quote = F)
+write.csv(clusters, paste0(network, "_betweenness_communities.csv", collapse = ''), row.names = F, quote = F)
 
-# calculate the enrichment of each a cell type, example B cells
+# calculate the enrichment of each a cell type
 all_host_genes <- hOG[, "human"]
 network_genes <- hOG[ hOG$Orthogroup %in% data[,1], "human"]
 
