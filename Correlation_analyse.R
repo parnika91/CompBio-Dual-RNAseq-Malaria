@@ -236,285 +236,285 @@ dev.off()
 
 ########### script to make annotation table for heatmaps #########
 
-# allHPexp <- read.delim("allHPexp.txt", sep = ',', stringsAsFactors = F)
+allHPexp <- read.delim("allHPexp.txt", sep = ',', stringsAsFactors = F)
 
-# datasets <- c("DRP000987.ortho.data.all", "DRP000987.ortho.data.int", "DRP000987.ortho.data.str", 
-#               "ERP106451.ortho.data.all", "ERP106451.ortho.data.int", "ERP106451.ortho.data.str",
-#               "ERP023982.ortho.data.all", "ERP023982.ortho.data.int",
-#               "ERP004598.ortho.data.all", "ERP004598.ortho.data.int", "ERP004598.ortho.data.str",
-#               "ERP110375.ortho.data.all", "ERP110375.ortho.data.int", "ERP110375.ortho.data.str",
-#               "SRP118996.ortho.data.all", "SRP118996.ortho.data.int", "SRP118996.ortho.data.str",
-#               "SRP118827.ortho.data.all", "SRP118827.ortho.data.int", "SRP118827.ortho.data.str",
-#               "SRP116593.ortho.data.all", "SRP116593.ortho.data.int", "SRP116593.ortho.data.str",
-#               "SRP116793.ortho.data.all", "SRP116793.ortho.data.int", "SRP116793.ortho.data.str",
-#               "SRP032775.ortho.data.all", "SRP032775.ortho.data.int", "SRP032775.ortho.data.str",
-#               "SRP108356.ortho.data.all", "SRP108356.ortho.data.int", "SRP108356.ortho.data.str",
-#               "SRP118503.ortho.data.all", "SRP118503.ortho.data.int", "SRP233153.ortho.data.int",
-#               "hpv_bl.ortho.data.int", "m_bl.ortho.data.int"
-#               )
+datasets <- c("DRP000987.ortho.data.all", "DRP000987.ortho.data.int", "DRP000987.ortho.data.str", 
+              "ERP106451.ortho.data.all", "ERP106451.ortho.data.int", "ERP106451.ortho.data.str",
+              "ERP023982.ortho.data.all", "ERP023982.ortho.data.int",
+              "ERP004598.ortho.data.all", "ERP004598.ortho.data.int", "ERP004598.ortho.data.str",
+              "ERP110375.ortho.data.all", "ERP110375.ortho.data.int", "ERP110375.ortho.data.str",
+              "SRP118996.ortho.data.all", "SRP118996.ortho.data.int", "SRP118996.ortho.data.str",
+              "SRP118827.ortho.data.all", "SRP118827.ortho.data.int", "SRP118827.ortho.data.str",
+              "SRP116593.ortho.data.all", "SRP116593.ortho.data.int", "SRP116593.ortho.data.str",
+              "SRP116793.ortho.data.all", "SRP116793.ortho.data.int", "SRP116793.ortho.data.str",
+              "SRP032775.ortho.data.all", "SRP032775.ortho.data.int", "SRP032775.ortho.data.str",
+              "SRP108356.ortho.data.all", "SRP108356.ortho.data.int", "SRP108356.ortho.data.str",
+              "SRP118503.ortho.data.all", "SRP118503.ortho.data.int", "SRP233153.ortho.data.int",
+              "hpv_bl.ortho.data.int", "m_bl.ortho.data.int"
+              )
 
-# rn <- c("DRP000987_all", "DRP000987_int", "DRP000987_str", 
-#         "ERP106451_all", "ERP106451_int", "ERP106451_str",
-#         "ERP023982_all", "ERP023982_int", 
-#         "ERP004598_all", "ERP004598_int", "ERP004598_str",
-#         "ERP110375_all", "ERP110375_int", "ERP110375_str",
-#         "SRP118996_all", "SRP118996_int", "SRP118996_str",
-#         "SRP118827_all", "SRP118827_int", "SRP118827_str",
-#         "SRP116593_all", "SRP116593_int", "SRP116593_str",
-#         "SRP116793_all", "SRP116793_int", "SRP116793_str",
-#         "SRP032775_all", "SRP032775_int", "SRP032775_str",
-#         "SRP108356_all", "SRP108356_int", "SRP108356_str",
-#         "SRP118503_all", "SRP118503_int", "SRP233153_int",
-#         "hpv_bl_int", "m_bl_int"
-#         )
+rn <- c("DRP000987_all", "DRP000987_int", "DRP000987_str", 
+        "ERP106451_all", "ERP106451_int", "ERP106451_str",
+        "ERP023982_all", "ERP023982_int", 
+        "ERP004598_all", "ERP004598_int", "ERP004598_str",
+        "ERP110375_all", "ERP110375_int", "ERP110375_str",
+        "SRP118996_all", "SRP118996_int", "SRP118996_str",
+        "SRP118827_all", "SRP118827_int", "SRP118827_str",
+        "SRP116593_all", "SRP116593_int", "SRP116593_str",
+        "SRP116793_all", "SRP116793_int", "SRP116793_str",
+        "SRP032775_all", "SRP032775_int", "SRP032775_str",
+        "SRP108356_all", "SRP108356_int", "SRP108356_str",
+        "SRP118503_all", "SRP118503_int", "SRP233153_int",
+        "hpv_bl_int", "m_bl_int"
+        )
 
-# anno <- data.frame()
+anno <- data.frame()
 
-# for(i in 1:length(datasets))
-# {
-#   ds <- loadRData(paste0(str_sub(rn[i], 1, -5), "/cor/", datasets[i],".RData", collapse = ))
-#   runs <- sapply(colnames(ds), function(x) strsplit(x, split = "_")[[1]][1])
+for(i in 1:length(datasets))
+{
+  ds <- loadRData(paste0(str_sub(rn[i], 1, -5), "/cor/", datasets[i],".RData", collapse = ))
+  runs <- sapply(colnames(ds), function(x) strsplit(x, split = "_")[[1]][1])
   
-#   pp <- sapply(runs, function(x) allHPexp[which(allHPexp$RunID==x),"ParaGenomeProp"])
-#   pp_median <- median(pp)
-#   hh <- sapply(runs, function(x) allHPexp[which(allHPexp$RunID==x),"HostGenomeProp"])
-#   hh_median <- median(hh)
+  pp <- sapply(runs, function(x) allHPexp[which(allHPexp$RunID==x),"ParaGenomeProp"])
+  pp_median <- median(pp)
+  hh <- sapply(runs, function(x) allHPexp[which(allHPexp$RunID==x),"HostGenomeProp"])
+  hh_median <- median(hh)
 
-#   host <- as.character(allHPexp[which(allHPexp$RunID==runs[1]),"Host"])
-#   parasite <- as.character(allHPexp[which(allHPexp$RunID==runs[1]),"Parasite"])
+  host <- as.character(allHPexp[which(allHPexp$RunID==runs[1]),"Host"])
+  parasite <- as.character(allHPexp[which(allHPexp$RunID==runs[1]),"Parasite"])
   
-#   anno[i,1] <- datasets[i]
-#   anno[i,2] <- host
-#   anno[i,3] <- parasite
-#   anno[i,4] <- pp_median
-#   anno[i,5] <- hh_median
-#   anno[i,6] <- rn[i]
-# }
+  anno[i,1] <- datasets[i]
+  anno[i,2] <- host
+  anno[i,3] <- parasite
+  anno[i,4] <- pp_median
+  anno[i,5] <- hh_median
+  anno[i,6] <- rn[i]
+}
 
-# rownames(anno) <- anno[,6]
-# anno <- anno[,c(2,3,4,5)]
-# colnames(anno) <- c("Host", "Parasite", "Median_ParaTransProp", "Median_HostTransProp")
+rownames(anno) <- anno[,6]
+anno <- anno[,c(2,3,4,5)]
+colnames(anno) <- c("Host", "Parasite", "Median_ParaTransProp", "Median_HostTransProp")
 
-# write.table(anno, "anno.txt", sep = '\t', row.names = T)
-# saveRDS(anno, file = "anno.rds")
+write.table(anno, "anno.txt", sep = '\t', row.names = T)
+saveRDS(anno, file = "anno.rds")
 
 
-########### Function to produce comparison matrices #########
+########## Function to produce comparison matrices #########
 
-# studyID <- c("ERP106451_str", "ERP106451_int", "ERP106451_all",
-#  "SRP118996_str", "SRP118996_int", "SRP118996_all",
-#  "SRP118827_str", "SRP118827_int", "SRP118827_all",
-#  "SRP116793_str", "SRP116793_int", "SRP116793_all",
-#  "SRP116593_str", "SRP116593_int", "SRP116593_all",
-#  "DRP000987_str", "DRP000987_int", "DRP000987_all",
-#  "ERP023982_int", "ERP023982_all",
-#  "ERP004598_str", "ERP004598_int", "ERP004598_all",
-#  "ERP110375_str", "ERP110375_int", "ERP110375_all",
-#  "SRP032775_all", "SRP032775_int", "SRP032775_str",
-#  "SRP108356_all", "SRP108356_int", "SRP108356_str",
-#  "SRP118503_all", "SRP118503_int", "SRP233153_int",
-#  "hpv_bl_int", "m_bl_int")
+studyID <- c("ERP106451_str", "ERP106451_int", "ERP106451_all",
+ "SRP118996_str", "SRP118996_int", "SRP118996_all",
+ "SRP118827_str", "SRP118827_int", "SRP118827_all",
+ "SRP116793_str", "SRP116793_int", "SRP116793_all",
+ "SRP116593_str", "SRP116593_int", "SRP116593_all",
+ "DRP000987_str", "DRP000987_int", "DRP000987_all",
+ "ERP023982_int", "ERP023982_all",
+ "ERP004598_str", "ERP004598_int", "ERP004598_all",
+ "ERP110375_str", "ERP110375_int", "ERP110375_all",
+ "SRP032775_all", "SRP032775_int", "SRP032775_str",
+ "SRP108356_all", "SRP108356_int", "SRP108356_str",
+ "SRP118503_all", "SRP118503_int", "SRP233153_int",
+ "hpv_bl_int", "m_bl_int")
 
-# datasets <- c()
-# list_ds <- list()
-# l <- 0
-# for(i in 1:length(studyID))
-# {
-#   ds <- loadRData(paste0(str_sub(studyID[i], 1, -5), "/cor/", studyID[i],"_bipartite.RData"))
-#   colnames(ds) <- sapply(colnames(ds), function(x) paste0(studyID[i],"_", feature, "_", x))
+datasets <- c()
+list_ds <- list()
+l <- 0
+for(i in 1:length(studyID))
+{
+  ds <- loadRData(paste0(str_sub(studyID[i], 1, -5), "/cor/", studyID[i],"_bipartite.RData"))
+  colnames(ds) <- sapply(colnames(ds), function(x) paste0(studyID[i],"_", feature, "_", x))
     
-#   list_ds[[paste0(studyID[i], "_bipartite_edges")]] <- ds
-#   l <- length(list_ds)
-# }
+  list_ds[[paste0(studyID[i], "_bipartite_edges")]] <- ds
+  l <- length(list_ds)
+}
 
-# data <- list_ds
-# feature = "b_edges" # bipartite edges
-# operations <- function(data, op, feature)
-# {
+data <- list_ds
+feature = "b_edges" # bipartite edges
+operations <- function(data, op, feature)
+{
 
-#  # size of intersecting interactions (common interactions) between all dataset pairs
-#  if(op == "overlap")
-#   {
-#         feature = feature
-#         m <- length(data)
-#         n <- ncol(data[[1]])
+ # size of intersecting interactions (common interactions) between all dataset pairs
+ if(op == "overlap")
+  {
+        feature = feature
+        m <- length(data)
+        n <- ncol(data[[1]])
         
-#         upset <- list()
-#         mat <- matrix(rep(0, (length(data)^2)), nrow = length(data), ncol = length(data))
+        upset <- list()
+        mat <- matrix(rep(0, (length(data)^2)), nrow = length(data), ncol = length(data))
          
-#         if(n>=3)
-#         {
-#           # finding intersecting edges
-#           for(i in 1:length(data))
-#           {
-#             upset[[i]] <- data[[i]][which(data[[i]][,4] == 0),1:2] #here 4 because cor column was included
-#             upset[[i]] <- paste(upset[[i]][,1], upset[[i]][,2], sep = '_')
-#           }
-#           names(upset) <- names(data)
-#           for(i in 1:length(upset))
-#             for(j in 1:length(upset))
-#               mat[i,j] <- 2*length(intersect(upset[[i]], upset[[j]]))/(length(upset[[i]]) + length(upset[[j]]))
-#           rownames(mat) <- colnames(mat) <- names(upset)
-#           save(mat, file = paste0(feature, "b_overlap_matrix_all_datasets_all_liver.RData"))
-#           save(upset, file =  paste0(feature,"b_overlap_upset_all_datasets_all_liver.RData"))
-#           write.table(mat,  paste0(feature, "b_overlap_matrix_all_datasets_all_liver.txt"), sep = '\t', row.names = T)
+        if(n>=3)
+        {
+          # finding intersecting edges
+          for(i in 1:length(data))
+          {
+            upset[[i]] <- data[[i]][which(data[[i]][,4] == 0),1:2] #here 4 because cor column was included
+            upset[[i]] <- paste(upset[[i]][,1], upset[[i]][,2], sep = '_')
+          }
+          names(upset) <- names(data)
+          for(i in 1:length(upset))
+            for(j in 1:length(upset))
+              mat[i,j] <- 2*length(intersect(upset[[i]], upset[[j]]))/(length(upset[[i]]) + length(upset[[j]]))
+          rownames(mat) <- colnames(mat) <- names(upset)
+          save(mat, file = paste0(feature, "b_overlap_matrix_all_datasets_all_liver.RData"))
+          save(upset, file =  paste0(feature,"b_overlap_upset_all_datasets_all_liver.RData"))
+          write.table(mat,  paste0(feature, "b_overlap_matrix_all_datasets_all_liver.txt"), sep = '\t', row.names = T)
           
-#           mat1 <- matrix(rep(0, (length(data)^2)), nrow = length(data), ncol = length(data))
+          mat1 <- matrix(rep(0, (length(data)^2)), nrow = length(data), ncol = length(data))
           
-#           for(i in 1:length(upset))
-#             for(j in 1:length(upset))
-#               mat1[i,j] <- length(intersect(upset[[i]], upset[[j]]))
-#           rownames(mat1) <- colnames(mat1) <- names(upset)
-#           save(mat1, file = paste0(feature, "b_overlap_raw_numbers_matrix_all_datasets_all_liver.RData"))
-#           write.table(mat1,  paste0(feature, "b_overlap_raw_numbers_matrix_all_datasets_all_liver.txt"), sep = '\t', row.names = T)
-#         }
+          for(i in 1:length(upset))
+            for(j in 1:length(upset))
+              mat1[i,j] <- length(intersect(upset[[i]], upset[[j]]))
+          rownames(mat1) <- colnames(mat1) <- names(upset)
+          save(mat1, file = paste0(feature, "b_overlap_raw_numbers_matrix_all_datasets_all_liver.RData"))
+          write.table(mat1,  paste0(feature, "b_overlap_raw_numbers_matrix_all_datasets_all_liver.txt"), sep = '\t', row.names = T)
+        }
     
-#     if(n==1)
-#     {
-#       # finding intersecting genes
-#       upset <- data
-#       names(upset) <- names(data)
-#       for(i in 1:length(data))
-#         for(j in 1:length(data))
-#           mat[i,j] <- 2*length(intersect(data[[i]][,1], data[[j]][,1]))/(nrow(data[[i]]) + nrow(data[[j]]))
+    if(n==1)
+    {
+      # finding intersecting genes
+      upset <- data
+      names(upset) <- names(data)
+      for(i in 1:length(data))
+        for(j in 1:length(data))
+          mat[i,j] <- 2*length(intersect(data[[i]][,1], data[[j]][,1]))/(nrow(data[[i]]) + nrow(data[[j]]))
       
-#       rownames(mat) <- colnames(mat) <- names(upset)
-#       save(mat, file = paste0(feature, "_overlap_matrix_all_datasets_liver.RData"))
-#       save(upset, file =  paste0(feature,"_overlap_upset_all_datasets_liver.RData"))
-#       write.table(mat,  paste0(feature, "_overlap_matrix_all_datasets_liver.txt"), sep = '\t', row.names = T)
-#      }
-#     res <- list(upset, mat)
-#   }
+      rownames(mat) <- colnames(mat) <- names(upset)
+      save(mat, file = paste0(feature, "_overlap_matrix_all_datasets_liver.RData"))
+      save(upset, file =  paste0(feature,"_overlap_upset_all_datasets_liver.RData"))
+      write.table(mat,  paste0(feature, "_overlap_matrix_all_datasets_liver.txt"), sep = '\t', row.names = T)
+     }
+    res <- list(upset, mat)
+  }
   
-#   ###### significance of the size of intersections ###########
+  ###### significance of the size of intersections ###########
 
-#   if(op == "sig")
-#   {
-#     feature = feature
-#     m <- length(data)
-#     n <- ncol(data[[1]])
+  if(op == "sig")
+  {
+    feature = feature
+    m <- length(data)
+    n <- ncol(data[[1]])
     
-#     sig <- data.frame()
-#     a = 1
-#     upset <- list()
+    sig <- data.frame()
+    a = 1
+    upset <- list()
     
-#     # finding intersecting edges
-#     for(i in 1:length(data))
-#     {
-#       upset[[i]] <- data[[i]][which(data[[i]][,4] == 0),1:2] # edges with ISIGEM score 0
-#       upset[[i]] <- paste(upset[[i]][,1], upset[[i]][,2], sep = '_')
-#     }
-#     names(upset) <- names(data)
-#     system.time(
-#     for(i in 1:length(upset))
-#     {
-#       #U1 = nrow(data[[i]])#[which(data[[i]][,4] != 100000),])
-#       for(j in 1:length(upset))
-#       {
-#         #U2 = nrow(data[[j]])#[which(data[[j]][,4] != 100000),])
-#         #U = U1 + U2
-#         U = 13981*4005
-#         X = length(union(upset[[i]], upset[[j]]))
-#         Y = length(setdiff(upset[[i]],upset[[j]]))
-#         W = length(setdiff(upset[[j]],upset[[i]]))
-#         Z = length(intersect(upset[[i]], upset[[j]]))
+    # finding intersecting edges
+    for(i in 1:length(data))
+    {
+      upset[[i]] <- data[[i]][which(data[[i]][,4] == 0),1:2] # edges with ISIGEM score 0
+      upset[[i]] <- paste(upset[[i]][,1], upset[[i]][,2], sep = '_')
+    }
+    names(upset) <- names(data)
+    system.time(
+    for(i in 1:length(upset))
+    {
+      #U1 = nrow(data[[i]])#[which(data[[i]][,4] != 100000),])
+      for(j in 1:length(upset))
+      {
+        #U2 = nrow(data[[j]])#[which(data[[j]][,4] != 100000),])
+        #U = U1 + U2
+        U = 13981*4005
+        X = length(union(upset[[i]], upset[[j]]))
+        Y = length(setdiff(upset[[i]],upset[[j]]))
+        W = length(setdiff(upset[[j]],upset[[i]]))
+        Z = length(intersect(upset[[i]], upset[[j]]))
         
-#         significance <- fisher.test(matrix(c(U-X, Y, W, Z), nrow=2), alternative = "greater")
+        significance <- fisher.test(matrix(c(U-X, Y, W, Z), nrow=2), alternative = "greater")
         
-#         sig[a,1] <- names(upset)[i]
-#         sig[a,2] <- length(upset[[i]])
-#         sig[a,3] <- names(upset)[j]
-#         sig[a,4] <- length(upset[[j]])
-#         sig[a,5] <- U
-#         sig[a,6] <- Z
-#         sig[a,7] <- significance$p.value
+        sig[a,1] <- names(upset)[i]
+        sig[a,2] <- length(upset[[i]])
+        sig[a,3] <- names(upset)[j]
+        sig[a,4] <- length(upset[[j]])
+        sig[a,5] <- U
+        sig[a,6] <- Z
+        sig[a,7] <- significance$p.value
         
-#         a = a+1
-#       }
+        a = a+1
+      }
         
-#     })
+    })
     
-#     colnames(sig) <- c("Set1","Set1_edges#", "Set2", "Set2_edges#", "Universe_size", "Intersection_size", "pvalue")
-#     padj <- p.adjust(sig[,7], method = "BH")
-#     sig$p.adj <- padj
+    colnames(sig) <- c("Set1","Set1_edges#", "Set2", "Set2_edges#", "Universe_size", "Intersection_size", "pvalue")
+    padj <- p.adjust(sig[,7], method = "BH")
+    sig$p.adj <- padj
     
-#     #cast the df into a matrix
-#     sig.mat <- reshape(sig[,c(1,3,8)], timevar = "Set1", idvar = "Set2", direction = "wide")
-#     rownames(sig.mat) <- sig.mat[,1]
-#     sig.mat <- sig.mat[,-1]
-#     colnames(sig.mat) <- str_sub(colnames(sig.mat),1, -9)
-#     rownames(sig.mat) <- str_sub(rownames(sig.mat), 1, -9)
-#     logt.sig.mat <- log10(1/(sig.mat + 1e-5))
+    #cast the df into a matrix
+    sig.mat <- reshape(sig[,c(1,3,8)], timevar = "Set1", idvar = "Set2", direction = "wide")
+    rownames(sig.mat) <- sig.mat[,1]
+    sig.mat <- sig.mat[,-1]
+    colnames(sig.mat) <- str_sub(colnames(sig.mat),1, -9)
+    rownames(sig.mat) <- str_sub(rownames(sig.mat), 1, -9)
+    logt.sig.mat <- log10(1/(sig.mat + 1e-5))
     
-#     save(sig, file = paste0(feature, "_overlap_signif_all_liver.RData"))
-#     write.table(sig,  paste0(feature, "_overlap_signif_all_liver.txt"), sep = '\t', row.names = T)
-#     save(sig.mat, file = paste0(feature, "_overlap_signif_all_liver_matrix.RData"))
-#     write.table(sig.mat,  paste0(feature, "_overlap_signif_all_liver_matrix.txt"), sep = '\t', row.names = T)
-#     save(logt.sig.mat, file = paste0(feature, "_logt_overlap_signif_all_liver_matrix.RData"))
+    save(sig, file = paste0(feature, "_overlap_signif_all_liver.RData"))
+    write.table(sig,  paste0(feature, "_overlap_signif_all_liver.txt"), sep = '\t', row.names = T)
+    save(sig.mat, file = paste0(feature, "_overlap_signif_all_liver_matrix.RData"))
+    write.table(sig.mat,  paste0(feature, "_overlap_signif_all_liver_matrix.txt"), sep = '\t', row.names = T)
+    save(logt.sig.mat, file = paste0(feature, "_logt_overlap_signif_all_liver_matrix.RData"))
     
-#   }
-#   return(res)
-# }
+  }
+  return(res)
+}
 
-# Cross_study_comparison(feature = "b_edges", op = "cor")
+operations(data = list_ds, feature = "b_edges", op = "cor")
 
-# colnames(mat1) <- sapply(colnames(mat1), function(x) str_sub(x, 1, -9))
-# rownames(mat1) <- sapply(rownames(mat1), function(x) str_sub(x, 1, -9))
+colnames(mat1) <- sapply(colnames(mat1), function(x) str_sub(x, 1, -9))
+rownames(mat1) <- sapply(rownames(mat1), function(x) str_sub(x, 1, -9))
 
-# pdf("pheatmap_b_edges_overlap.pdf" ) #, width = 20, height = 20, unit = "cm", res = 300
-# pheatmap::pheatmap(log10(mat1+1), annotation_row = anno, 
-#                    fontsize = 8, color = colorRampPalette(rev(brewer.pal(n = 7, name ="RdYlBu")))(100),
-#                    main = "Intersection size of bipartite edges",
-#                    cluster_cols = F, cluster_rows = T) #-log10(1/(sig.mat + 1e-06))
-# dev.off()
+pdf("pheatmap_b_edges_overlap.pdf" ) #, width = 20, height = 20, unit = "cm", res = 300
+pheatmap::pheatmap(log10(mat1+1), annotation_row = anno, 
+                   fontsize = 8, color = colorRampPalette(rev(brewer.pal(n = 7, name ="RdYlBu")))(100),
+                   main = "Intersection size of bipartite edges",
+                   cluster_cols = F, cluster_rows = T) #-log10(1/(sig.mat + 1e-06))
+dev.off()
 
-# pdf("pheatmap_b_edges_significance.pdf")
-# pheatmap::pheatmap(sig.mat, annotation_row = anno, 
-#                    fontsize = 8, color = colorRampPalette(brewer.pal(n = 7, name ="RdYlBu"))(100),
-#                    main = "Significance of intersection size of bipartite edges",
-#                    cluster_cols = F, cluster_rows = F) #-log10(1/(sig.mat + 1e-06))
-# dev.off()
+pdf("pheatmap_b_edges_significance.pdf")
+pheatmap::pheatmap(sig.mat, annotation_row = anno, 
+                   fontsize = 8, color = colorRampPalette(brewer.pal(n = 7, name ="RdYlBu"))(100),
+                   main = "Significance of intersection size of bipartite edges",
+                   cluster_cols = F, cluster_rows = F) #-log10(1/(sig.mat + 1e-06))
+dev.off()
 
-# ##### Computing and plotting Jaccard index #############
+##### Computing and plotting Jaccard index #############
 
-# Jaccard <- function(edgelist)
-# {
-#   d <- length(edgelist)
-#   jac.sim <- matrix(rep(0, d^2), nrow = d)
+Jaccard <- function(edgelist)
+{
+  d <- length(edgelist)
+  jac.sim <- matrix(rep(0, d^2), nrow = d)
   
-#   for(i in 1:d)
-#   {
-#     for(j in 1:d)
-#     {
-#       A <- edgelist[[i]]
-#       B <- edgelist[[j]]
+  for(i in 1:d)
+  {
+    for(j in 1:d)
+    {
+      A <- edgelist[[i]]
+      B <- edgelist[[j]]
 
-#       numerator <- length(intersect(A, B))
-#       denominator <- length(union(A, B))
+      numerator <- length(intersect(A, B))
+      denominator <- length(union(A, B))
 
-#       jac.ind <- numerator/denominator
+      jac.ind <- numerator/denominator
 
-#       jac.sim[i,j] <- jac.ind
-#     }
-#   }
-#   colnames(jac.sim) <- names(edgelist)
-#   rownames(jac.sim) <- names(edgelist)
+      jac.sim[i,j] <- jac.ind
+    }
+  }
+  colnames(jac.sim) <- names(edgelist)
+  rownames(jac.sim) <- names(edgelist)
 
-#   return(jac.sim)
-# }
+  return(jac.sim)
+}
 
-# jaccard.index <- Jaccard(upset)
+jaccard.index <- Jaccard(upset)
 
-# jac <- -log10(jaccard.index) # or the -log10 of the jaccard indices
-# colnames(jac) <- sapply(colnames(jac), function(x) str_sub(x, 1, -9))
-# rownames(jac) <- sapply(rownames(jac), function(x) str_sub(x, 1, -9))
+jac <- -log10(jaccard.index) # or the -log10 of the jaccard indices
+colnames(jac) <- sapply(colnames(jac), function(x) str_sub(x, 1, -9))
+rownames(jac) <- sapply(rownames(jac), function(x) str_sub(x, 1, -9))
 
-# is.na(jac)<-sapply(jac, is.infinite)
-# jac[is.na(jac)]<-8
+is.na(jac)<-sapply(jac, is.infinite)
+jac[is.na(jac)]<-8
 
-# pdf("pheatmap_b_edges_jaccard.pdf")
-# pheatmap::pheatmap(jac, annotation_row = anno, 
-#                    fontsize = 8, color = colorRampPalette(brewer.pal(n = 7, name ="RdYlBu"))(100),
-#                    main = "Intersection size of bipartite edges - -log10(Jaccard Index)",
-#                    cluster_cols = T, cluster_rows = T) #-log10(1/(sig.mat + 1e-06))
-# dev.off()
+pdf("pheatmap_b_edges_jaccard.pdf")
+pheatmap::pheatmap(jac, annotation_row = anno, 
+                   fontsize = 8, color = colorRampPalette(brewer.pal(n = 7, name ="RdYlBu"))(100),
+                   main = "Intersection size of bipartite edges - -log10(Jaccard Index)",
+                   cluster_cols = T, cluster_rows = T) #-log10(1/(sig.mat + 1e-06))
+dev.off()
