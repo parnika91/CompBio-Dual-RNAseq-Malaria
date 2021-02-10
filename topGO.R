@@ -148,38 +148,28 @@ loadRData <- function(fileName){
 ###################### This is the file that can be used here as universal geneset ####################
 # write.table(Pb_Pf_Pv_OG, "p_OG_GOterms.txt", sep = '\t', row.names = F, quote = F)
 
-### Accept as input the studyID and the network that we want to do the GO analysis for
-# for example ,study DRP000987 and dataset DRP000987_str_bipartite.RData, which is the bipartite network in the "str" threshold of DRP000987
-# such an Rdata file would have the first column as the host genes and the second column as the parasite genes that each host gene is associated (interacting) with
-# Note please that these are still represented as orthogroups IDs and not really the gene names of the individual species
+### Accept as input the network that we want to do the GO analysis for
 options(echo=TRUE)
 args <- commandArgs(TRUE)
-studyID <- args[1]
-dataset <- args[2] #, eg DRP000987_str_bipartite.RData
+dataset <- args[1] # overall or core
 
-net <- loadRData(paste0(studyID, "/", dataset, ".RData", collapse = ''))
+overall <- readRDS("blood_all_bipartite.rds")
+
+if(dataset=="core")
+{
+  net <- readRDS("blood_core_network.rds")
+  host_universe_for_core <- unique(as.character(overall[,1]))
+  parasite_universe_for_core <- unique(as.character(overall[,2]))
+}
+else
+  net = overall
+
 para_genes <- unique(as.character(net[,2]))
 host_genes <- unique(as.character(net[,1]))
-write.table(para_genes, paste0(studyID, "/", studyID, "_para_genes.txt", collapse = ''), quote = F, row.names = F)
-write.table(host_genes, paste0(studyID, "/", studyID, "_host_genes.txt", collapse = ''), quote = F, row.names = F)
 
 pOG <- read.delim("parasite_orthogroups.txt", stringsAsFactors=FALSE)
 
-bip_studies <- studyID
-
-# for example, if we want to do this aalysis for many studies at once, then the above step can be done first by commenting out the next step
-# and then in bip_studies, include all the studyIDs as a vector as shown in the comments below this block and run the for loop below.
-# The for loop below loops over each study and BP, CC, MF for parasite and for host
-# I will make this process more elegant in the future
-
-# bip_studies <- c("SRP250329", "ERP105548", 
-#                  "SRP110282", "SRP096160",
-#                  "liver.int.overall")
-# bip_studies <- c("DRP000987","ERP106451",
-#                  "ERP110375", "ERP004598",
-#                  "SRP118827", "SRP116793"
-#                  )
-
+bip_studies <- dataset
 
 geneont <- c("BP", "CC", "MF")
 
@@ -195,18 +185,28 @@ for(m in 1:length(bip_studies))
      
     geneID2GO <- readMappings(file = "topGO/p_OG_GOterms.txt") # 3659 genes
     
-    para_genes <- read.delim(paste0(study ,"_para_genes.txt",
-                                  collapse = ""), stringsAsFactors=FALSE, header = T)
-
     # parasite genes of interest
     para_in <- unique(as.character(para_genes[,1]))
     # universe of parasite genes
     para_bg <- names(geneID2GO)
     # to know which genes are interesting within the universe, we do %in% with background genes
     geneList = factor(as.integer(para_bg %in% para_in))
-    # make it a named vectore, that's what topGO requires
+    # make it a named vector, that's what topGO requires
     names(geneList)= para_bg
 
+    # for core
+    if(dataset == "core")
+    {
+      para_uni <- parasite_universe_for_core
+      para_in <- unique(as.character(para_genes[,1]))
+      bg <- intersect(para_uni, names(geneID2GO))
+      
+      geneList = factor(as.integer(bg %in% para_in))
+      names(geneList)= bg
+
+    }
+    # universe for core network: 
+    
     GOdata <- new("topGOdata",
                   ontology = GeneOnt,
                   allGenes = geneList,
@@ -218,9 +218,9 @@ for(m in 1:length(bip_studies))
     # The column Expected represents the expected number of interesting genes mapped to the 
     # GO term if the interesting genes were randomly distributed over all GO terms.
     
-    resultKS=runTest(GOdata, algorithm='weight01', statistic='Fisher') 
+    resultKS=runTest(GOdata, algorithm='weight01', statistic='KS') 
     allGO=usedGO(GOdata)
-    all_res=GenTable(GOdata, Fisher=resultKS, orderBy="Fisher", topNodes=length(allGO))
+    all_res=GenTable(GOdata, KS=resultKS, orderBy="KS", topNodes=length(allGO))
     
     # Get genes in a particular GO term:
     GenesForGOterm <- c()
@@ -231,7 +231,7 @@ for(m in 1:length(bip_studies))
       myterm <- mygenes[myterms[i]][[1]]
       mygenesforterm <- myterm[which(myterm %in% para_in == TRUE)]
       mygenesforterm <- sapply(mygenesforterm, 
-                               function(x) pOG[grep(pattern = x, pOG$Orthogroup),"Pb_g"])
+                               function(x) pOG[grep(pattern = x, pOG$Orthogroup),"Pberghei"])
       mygenesforterm <- paste(mygenesforterm, collapse=',')
       GenesForGOterm[i] <- mygenesforterm
     }
@@ -241,9 +241,6 @@ for(m in 1:length(bip_studies))
     
     # Host
     # Background genes
-    host_genes <- read.delim(paste0("~/Documents/Data/", study ,"_host_genes.txt",
-                                  collapse = ""), header =T,
-                           stringsAsFactors=FALSE)
     host_orthogroups <- read.delim("~/Downloads/host_orthogroups.txt", stringsAsFactors=FALSE)
     colnames(host_genes)[1] <- "Orthogroup"
     host_in <- inner_join(host_genes, host_orthogroups)
@@ -253,6 +250,21 @@ for(m in 1:length(bip_studies))
     host_bg <- host_orthogroups[,3]
     h_geneList <- as.integer(host_bg %in% host_in)
     names(h_geneList) <- host_bg
+
+    if(dataset == "core")
+    {
+      host_uni <- host_universe_for_core
+      host_bg <- host_orthogroups$Orthogroup
+      h_bg <- intersect(host_uni, host_bg)
+      h_bg <- host_orthogroups[host_orthogroups$Orthogroup%in%h_bg,"mouse"]
+      host_in <- host_genes[,1]
+      host_in <- host_orthogroups[host_orthogroups$Orthogroup%in%host_in,"mouse"]
+
+      h_geneList <- as.factor(as.integer(h_bg %in% host_in))
+      h_genenames <- sapply(h_bg, function(x) host_orthogroups[grep(pattern = x, host_orthogroups$Orthogroup), 3])
+      names(h_geneList) <- h_genenames
+    }
+    
     
     topDiffGenes <- function(allScore) 
     {
@@ -269,9 +281,9 @@ for(m in 1:length(bip_studies))
                    mapping = "org.Mm.eg",
                    ID = "ensembl")
     
-    resultKS=runTest(hGOdata, algorithm='weight01', statistic='Fisher')
+    resultKS=runTest(hGOdata, algorithm='weight01', statistic='KS')
     allGO=usedGO(hGOdata)
-    all_res=GenTable(hGOdata, Fisher=resultKS, orderBy="Fisher", topNodes=length(allGO))
+    all_res=GenTable(hGOdata, KS=resultKS, orderBy="KS", topNodes=length(allGO))
     ################################################################
     
     GenesForGOterm <- c()
