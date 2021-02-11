@@ -4,7 +4,7 @@
 #####################################################################
 #
 #   This is the main script that needs to be run in order to 
-#   download requence data, map them onto reference genomes and quantify gene expression
+#   download sequence data, map them onto reference genomes and quantify gene expression
 #   
 #   To run this script, do:
 #   sh TranscriptomeAnalysisENA.sh <txt filename with all studies to analyse in a column>
