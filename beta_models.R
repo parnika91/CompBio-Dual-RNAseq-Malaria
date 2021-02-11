@@ -40,22 +40,22 @@ blood_core_para_edges <- function()
 
   # put a 1 to indicate the presence of the interaction (rows) in each study (columns)
   # it is important that the overall network (or blood_all) has to be the first one in study_list
-  # Then left_join joins based on the interactions in blood_all, thus, maintaining our requirement 
+  # Then left_join joins based on the interactions in blood_all, thus, maintaining our requirement
   # of using blood_all as the scaffold to make the core network
-  edge_counter <- list(study_list) %>% 
+  edge_counter <- list(study_list) %>%
     reduce(left_join, by = "pp")
 
   # adds up the number of datasets an interaction is found in
   edge_rowsums <- rowSums(edge_counter[,2:ncol(edge_counter)], na.rm = T)
   edge_counter$edge_rowsums <- edge_rowsums
 
-  human_edges <- edge_counter[(!is.na(edge_counter$ERP106451_c) | !is.na(edge_counter$DRP000987_c) | 
+  human_edges <- edge_counter[(!is.na(edge_counter$ERP106451_c) | !is.na(edge_counter$DRP000987_c) |
     !is.na(edge_counter$hpv_c) | !is.na(edge_counter$SRP032775_c) | !is.na(edge_counter$SRP233153_c) | !is.na(edge_counter$ERP023982_c)),]
 
-  # to make sure that an edge in the core network is present in at least one other host organism dataset - 
+  # to make sure that an edge in the core network is present in at least one other host organism dataset -
   # so that the edge is not just present in the human dataset
-  core_edges <- human_edges[(!is.na(human_edges$ERP110375_c) | !is.na(human_edges$ERP004598_c) | !is.na(human_edges$mbl_c) | 
-  !is.na(human_edges$SRP118827_c) | !is.na(human_edges$SRP116793_c) | !is.na(human_edges$SRP116593_c) | !is.na(human_edges$SRP118996_c) | 
+  core_edges <- human_edges[(!is.na(human_edges$ERP110375_c) | !is.na(human_edges$ERP004598_c) | !is.na(human_edges$mbl_c) |
+  !is.na(human_edges$SRP118827_c) | !is.na(human_edges$SRP116793_c) | !is.na(human_edges$SRP116593_c) | !is.na(human_edges$SRP118996_c) |
   !is.na(human_edges$SRP108356_c) | !is.na(human_edges$SRP118503_c)),]
 
   # separate the names of the genes in the interaction pair joined by underscores
@@ -69,8 +69,9 @@ blood_core_para_edges <- function()
 }
 
 if(dataset =="overall")
+{
   data <- readRDS("blood_all_para.rds")
-else
+}else
 {
   #data <- blood_core_para_edges()
   data <- readRDS("blood_core_para.rds")
@@ -119,7 +120,7 @@ colnames(join_df) <- c("Orthogroup",paste0(dataset, "_dg", collapse = ""),
 
 
 
-RGR_MIS_phenotype = saveRDS("RGR_MIS_phenotype.rds")
+RGR_MIS_phenotype = readRDS("RGR_MIS_phenotype.rds")
 RGR_MIS_phenotype <- left_join(RGR_MIS_phenotype, join_df)
 saveRDS(RGR_MIS_phenotype, file = "RGR_MIS_phenotype.rds")
 
@@ -144,55 +145,39 @@ dg_ec_mis <- betareg(data = RGR_MIS_phenotype, MIS ~ RGR_MIS_phenotype[,c(paste0
 
 models_list <- list(dg_rgr, ec_rgr, bw_rgr, dg_bw_rgr, dg_ec_rgr,
                     dg_mis, ec_mis, bw_mis, dg_bw_mis, dg_ec_mis)
+names(models_list) <- c(paste0(dataset, "_dg_rgr"), paste0(dataset, "_ec_rgr"), paste0(dataset, "_bw_rgr"), paste0(dataset, "_dg_bw_rgr"), paste0(dataset, "_dg_ec_rgr"),
+                        paste0(dataset, "_dg_mis"), paste0(dataset, "_ec_mis"), paste0(dataset, "_bw_mis"), paste0(dataset, "_dg_bw_mis"), paste0(dataset, "_dg_ec_mis"))
 
 
 # making a table with model properties from the current models
 model_table <- function(models)
 {
-  remove <- c(0)
-  for(x in 1:length(models))
-  {
-    if(!exists(models[x]))
-      remove <- append(remove, x)
-  }
-
-  if(length(remove) > 1)
-    models <- models[-remove]
-
-  tab <- data.frame(model_name = rep("mn", 150),
-    dg = rep("dg", 150),
-    bw = rep("bw", 150),
-    cl = rep("cl", 150),
-    ec = rep("ec", 150),
-    kc = rep("kc", 150),
-    prsq = rep("prsq", 150))
+  tab <- data.frame(model_name = rep("mn", 10),
+    dg = rep("dg", 10),
+    bw = rep("bw", 10),
+    cl = rep("cl", 10),
+    ec = rep("ec", 10),
+    kc = rep("kc", 10),
+    prsq = rep("prsq", 10))
   tab[] <- lapply(tab, as.character)
 
   for(i in 1:length(models))
   {
     tab[i,1] <- names(models[i])
-    #as.character(substitute(models[i]))
-
-    m <- eval(parse(text = models[i]))
-
-    coefs <- as.data.frame(m$call$coefficients$mean)
-    coef_names <- names(m$call$coefficients$mean)
-
-    for(j in 2:length(coef_names))
+    m <- models[i]
+    coefs <- coef(summary(m[[1]]))$mean
+    
+    for(j in 2:nrow(coefs))
     {
-        #pred <- strsplit(coef_names[j], "_")[[1]][3]
-        pred <- str_sub(coef_names[j], 42, -19)
-        
-        effect_size <- format(exp(coefs[j, 1]), nsmall = 3, scientific = T, digits = 5)
-        #pval <- format(coefs[j, 4], nsmall = 3, scientific = T, digits = 5)
-        #pval <- format(models[i][[1]]$coefficients$precision[4], nsmall = 3, scientific = T, digits = 5) # this is wrong, this is the pval for precision model, not coefs
+      pred <- str_sub(rownames(coefs)[j], 41, 42)
+      effect_size <- format(exp(coefs[j, 1]), nsmall = 3, scientific = T, digits = 5)
+      pval <- format(coef(summary(m[[1]]))$mean[j,4], nsmall = 3, scientific = T, digits = 5)
+      eff_pv <- paste(effect_size, pval, sep = "; ")
 
-        eff_pv <- paste(effect_size, pval, sep = "; ")
-
-        tab[i,grep(pattern = pred, colnames(tab))] = eff_pv
+      tab[i,grep(pattern = pred, colnames(tab))] = eff_pv
     }
 
-    tab[i,7] <- m[["pseudo.r.squared"]]
+    tab[i,7] <- format(m[[1]][["pseudo.r.squared"]], nsmall = 3, scientific = T, digits = 5)
   }
   return(tab)
 }
@@ -202,21 +187,23 @@ models_table <- model_table(models_list)
 write.table(models_table, paste0(dataset, "_models_table_exp.txt", collapse = ""), sep = '\t', row.names = F)
 
 
-
 ## RGR plots ##
-ggplot(data=RGR_MIS_cleaned, aes(x=RGR_MIS_phenotype[,c(paste0(dataset, "_ec", collapse = ""))], y=RGR, colour = phenotype.y))+
+ggplot(data=RGR_MIS_phenotype, aes(x=RGR_MIS_phenotype[,c(paste0(dataset, "_ec", collapse = ""))], y=RGR, colour = phenotype.y))+
   geom_point(alpha = 0.8) +
   #scale_colour_manual(values=unique(as.character(RGR_MIS_cleaned$color.codes))) +
   theme_bw() + 
+  geom_line(aes(y = predict(models_list[[paste0(dataset, "_ec_mis")]], RGR_MIS_phenotype))) +
   ggtitle("Relative growth rate vs eigen centrality") +
   xlab("Eigenvector centrality") + 
   ylab("Relative Growth Rate")
 ggsave("RGR_vs_EC.png")
 
-ggplot(data=RGR_MIS_cleaned, aes(x=RGR_MIS_phenotype[,c(paste0(dataset, "_ec", collapse = ""))], y=MIS, colour = phenotype.y))+
+## MIS plots ##
+ggplot(data=RGR_MIS_phenotype, aes(x=RGR_MIS_phenotype[,c(paste0(dataset, "_ec", collapse = ""))], y=MIS, colour = phenotype.y))+
   geom_point(alpha = 0.8) +
   #scale_colour_manual(values=unique(as.character(RGR_MIS_cleaned$color.codes))) +
   theme_bw() + 
+  geom_line(aes(y = predict(models_list[[paste0(dataset, "_ec_mis")]], RGR_MIS_phenotype))) +
   ggtitle("Mutagenesis index score vs eigen centrality") +
   xlab("Eigenvector centrality") + 
   ylab("Mutagenesis Index Score")
