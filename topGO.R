@@ -160,8 +160,7 @@ if(dataset=="core")
   net <- readRDS("blood_core_network.rds")
   host_universe_for_core <- unique(as.character(overall[,1]))
   parasite_universe_for_core <- unique(as.character(overall[,2]))
-}
-else
+}else
   net = overall
 
 para_genes <- unique(as.character(net[,2]))
@@ -183,10 +182,10 @@ for(m in 1:length(bip_studies))
     GeneOnt <- geneont[n]
     
      
-    geneID2GO <- readMappings(file = "topGO/p_OG_GOterms.txt") # 3659 genes
+    geneID2GO <- readMappings(file = "p_OG_GOterms.txt") # 3659 genes
     
     # parasite genes of interest
-    para_in <- unique(as.character(para_genes[,1]))
+    para_in <- unique(as.character(para_genes))
     # universe of parasite genes
     para_bg <- names(geneID2GO)
     # to know which genes are interesting within the universe, we do %in% with background genes
@@ -198,7 +197,7 @@ for(m in 1:length(bip_studies))
     if(dataset == "core")
     {
       para_uni <- parasite_universe_for_core
-      para_in <- unique(as.character(para_genes[,1]))
+      para_in <- unique(as.character(para_genes))
       bg <- intersect(para_uni, names(geneID2GO))
       
       geneList = factor(as.integer(bg %in% para_in))
@@ -242,7 +241,7 @@ for(m in 1:length(bip_studies))
     # Host
     # Background genes
     host_orthogroups <- read.delim("~/Downloads/host_orthogroups.txt", stringsAsFactors=FALSE)
-    colnames(host_genes)[1] <- "Orthogroup"
+    host_genes <- data.frame(Orthogroup = host_genes)
     host_in <- inner_join(host_genes, host_orthogroups)
     host_in <- host_in[,c(1,3)]
     host_in <- unique(as.character(host_in[,2]))
@@ -261,10 +260,8 @@ for(m in 1:length(bip_studies))
       host_in <- host_orthogroups[host_orthogroups$Orthogroup%in%host_in,"mouse"]
 
       h_geneList <- as.factor(as.integer(h_bg %in% host_in))
-      h_genenames <- sapply(h_bg, function(x) host_orthogroups[grep(pattern = x, host_orthogroups$Orthogroup), 3])
-      names(h_geneList) <- h_genenames
+      names(h_geneList) <- h_bg
     }
-    
     
     topDiffGenes <- function(allScore) 
     {
