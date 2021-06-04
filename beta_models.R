@@ -1,6 +1,5 @@
 # Script to construct beta regression models with the properties of gene co-expression
 
-
 library(dplyr)
 library(igraph)
 library(betareg)
@@ -82,41 +81,43 @@ d <- data.frame(gene1 = as.character(data[,1]), gene2 = as.character(data[,2]))
 ig <- graph_from_data_frame(d, directed = F)
 
 dg <- degree(ig, v = V(ig), loops = F, normalized = F)
-bw <- betweenness(ig, v = V(ig), directed = FALSE)
-cl <- closeness(ig, vids = V(ig))
+#bw <- betweenness(ig, v = V(ig), directed = FALSE)
+#cl <- closeness(ig, vids = V(ig))
 ec <- eigen_centrality(ig, directed = FALSE)
-kc <- coreness(ig, mode = c("all"))
+#kc <- coreness(ig, mode = c("all"))
 
 dg_p <- dg[grep(pattern = "p_OG", names(dg))]
 dg_df <- as.data.frame(dg_p) %>%
   tibble::rownames_to_column("Orthogroup")
 
-bw_p <- bw[grep(pattern = "p_OG", names(bw))]
-bw_df <- as.data.frame(bw_p) %>%
-  tibble::rownames_to_column("Orthogroup")
+#bw_p <- bw[grep(pattern = "p_OG", names(bw))]
+#bw_df <- as.data.frame(bw_p) %>%
+#  tibble::rownames_to_column("Orthogroup")
 
-cl_p <- cl[grep(pattern = "p_OG", names(cl))]
-cl_df <- as.data.frame(cl_p) %>%
-  tibble::rownames_to_column("Orthogroup")
+#cl_p <- cl[grep(pattern = "p_OG", names(cl))]
+#cl_df <- as.data.frame(cl_p) %>%
+#  tibble::rownames_to_column("Orthogroup")
 
 ec_p <- ec$vector[grep(pattern = "p_OG", names(ec$vector))]
 ec_df <- as.data.frame(ec_p) %>%
   tibble::rownames_to_column("Orthogroup")
 
-kc_p <- kc[grep(pattern = "p_OG", names(kc))]
-kc_df <- as.data.frame(kc_p) %>%
-  tibble::rownames_to_column("Orthogroup")
+#kc_p <- kc[grep(pattern = "p_OG", names(kc))]
+#kc_df <- as.data.frame(kc_p) %>%
+#  tibble::rownames_to_column("Orthogroup")
 
-join_df <-plyr::join_all(list(dg_df, bw_df, cl_df,
-                              ec_df, kc_df), by = "Orthogroup", type = "full")
+join_df <-plyr::join_all(list(dg_df, #bw_df, cl_df,
+                              ec_df#, kc_df
+                              ), by = "Orthogroup", type = "full")
 
 join_df[is.na(join_df)] <- 0
 
 colnames(join_df) <- c("Orthogroup",paste0(dataset, "_dg", collapse = ""),
-                       paste0(dataset, "_bw", collapse = ""),
-                       paste0(dataset, "_cl", collapse = ""),
+                       #paste0(dataset, "_bw", collapse = ""),
+                       #paste0(dataset, "_cl", collapse = ""),
                        paste0(dataset, "_ec", collapse = ""),
-                       paste0(dataset, "_kc", collapse = ""))
+                       #paste0(dataset, "_kc", collapse = "")
+                       )
 
 
 
