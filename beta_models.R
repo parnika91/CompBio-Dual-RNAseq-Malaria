@@ -22,7 +22,7 @@ dataset <- args[1] # enter overall or core
 # function to get the core network of parasite-parasite edges 
 blood_core_para_edges <- function()
 {
-  studies <- c("blood_all",
+  studies <- c(#"blood_all",
   # human studies
   "DRP000987_str", "ERP106451_all", "SRP032775_str", "SRP233153_int", "ERP023982_int", "hpv_bl_int", #hpv_bl is the collection of human - P.vivax blood runs
   # mouse studies
@@ -79,7 +79,7 @@ if(dataset =="overall")
 
 d <- data.frame(gene1 = as.character(data[,1]), gene2 = as.character(data[,2]))
 ig <- graph_from_data_frame(d, directed = F)
-
+E(ig)$weight = data[,3]
 dg <- degree(ig, v = V(ig), loops = F, normalized = F)
 #bw <- betweenness(ig, v = V(ig), directed = FALSE)
 #cl <- closeness(ig, vids = V(ig))
@@ -115,10 +115,11 @@ join_df[is.na(join_df)] <- 0
 colnames(join_df) <- c("Orthogroup",paste0(dataset, "_dg", collapse = ""),
                        #paste0(dataset, "_bw", collapse = ""),
                        #paste0(dataset, "_cl", collapse = ""),
-                       paste0(dataset, "_ec", collapse = ""),
+                       paste0(dataset, "_ec", collapse = "")
                        #paste0(dataset, "_kc", collapse = "")
                        )
 
+liver_RGR_MIS <- left_join(liver_RGR_MIS, join_df)
 
 
 RGR_MIS_phenotype = readRDS("RGR_MIS_phenotype.rds")
