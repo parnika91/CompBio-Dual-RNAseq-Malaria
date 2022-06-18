@@ -1,0 +1,380 @@
+parasite_GO	host_GO
+GO:0006367_transcription initiation from RNA polyme...	GO:0006508_proteolysis
+GO:0006367_transcription initiation from RNA polyme...	GO:0006790_sulfur compound metabolic process
+GO:0006367_transcription initiation from RNA polyme...	GO:0006869_lipid transport
+GO:0006367_transcription initiation from RNA polyme...	GO:0007155_cell adhesion
+GO:0006367_transcription initiation from RNA polyme...	GO:0008033_tRNA processing
+GO:0006367_transcription initiation from RNA polyme...	GO:0009653_anatomical structure morphogenesis
+GO:0006367_transcription initiation from RNA polyme...	GO:0010035_response to inorganic substance
+GO:0006367_transcription initiation from RNA polyme...	GO:0010467_gene expression
+GO:0006367_transcription initiation from RNA polyme...	GO:0010951_negative regulation of endopeptidase act...
+GO:0006367_transcription initiation from RNA polyme...	GO:0019359_nicotinamide nucleotide biosynthetic pro...
+GO:0006367_transcription initiation from RNA polyme...	GO:0019725_cellular homeostasis
+GO:0006367_transcription initiation from RNA polyme...	GO:0030335_positive regulation of cell migration
+GO:0006367_transcription initiation from RNA polyme...	GO:0030520_intracellular estrogen receptor signalin...
+GO:0006367_transcription initiation from RNA polyme...	GO:0030855_epithelial cell differentiation
+GO:0006367_transcription initiation from RNA polyme...	GO:0031398_positive regulation of protein ubiquitin...
+GO:0006367_transcription initiation from RNA polyme...	GO:0031647_regulation of protein stability
+GO:0006367_transcription initiation from RNA polyme...	GO:0032680_regulation of tumor necrosis factor prod...
+GO:0006367_transcription initiation from RNA polyme...	GO:0036297_interstrand cross-link repair
+GO:0006367_transcription initiation from RNA polyme...	GO:0042403_thyroid hormone metabolic process
+GO:0006367_transcription initiation from RNA polyme...	GO:0043171_peptide catabolic process
+GO:0006367_transcription initiation from RNA polyme...	GO:0043244_regulation of protein-containing complex...
+GO:0006367_transcription initiation from RNA polyme...	GO:0043966_histone H3 acetylation
+GO:0006367_transcription initiation from RNA polyme...	GO:0045444_fat cell differentiation
+GO:0006367_transcription initiation from RNA polyme...	GO:0045669_positive regulation of osteoblast differ...
+GO:0006367_transcription initiation from RNA polyme...	GO:0046031_ADP metabolic process
+GO:0006367_transcription initiation from RNA polyme...	GO:0046621_negative regulation of organ growth
+GO:0006367_transcription initiation from RNA polyme...	GO:0048806_genitalia development
+GO:0006367_transcription initiation from RNA polyme...	GO:0050435_amyloid-beta metabolic process
+GO:0006367_transcription initiation from RNA polyme...	GO:0050678_regulation of epithelial cell proliferat...
+GO:0006367_transcription initiation from RNA polyme...	GO:0050863_regulation of T cell activation
+GO:0006367_transcription initiation from RNA polyme...	GO:0050885_neuromuscular process controlling balanc...
+GO:0006367_transcription initiation from RNA polyme...	GO:0051048_negative regulation of secretion
+GO:0006367_transcription initiation from RNA polyme...	GO:0051258_protein polymerization
+GO:0006367_transcription initiation from RNA polyme...	GO:0051261_protein depolymerization
+GO:0006367_transcription initiation from RNA polyme...	GO:0051701_biological process involved in interacti...
+GO:0006367_transcription initiation from RNA polyme...	GO:0052548_regulation of endopeptidase activity
+GO:0006367_transcription initiation from RNA polyme...	GO:0060429_epithelium development
+GO:0006367_transcription initiation from RNA polyme...	GO:0090278_negative regulation of peptide hormone s...
+GO:0006367_transcription initiation from RNA polyme...	GO:0090305_nucleic acid phosphodiester bond hydroly...
+GO:0006367_transcription initiation from RNA polyme...	GO:1901617_organic hydroxy compound biosynthetic pr...
+GO:0006367_transcription initiation from RNA polyme...	GO:1901652_response to peptide
+GO:0006367_transcription initiation from RNA polyme...	GO:1904035_regulation of epithelial cell apoptotic ...
+GO:0006367_transcription initiation from RNA polyme...	GO:1990266_neutrophil migration
+GO:0006367_transcription initiation from RNA polyme...	GO:2000378_negative regulation of reactive oxygen s...
+GO:0006413_translational initiation	GO:0003081_regulation of systemic arterial blood pr...
+GO:0006413_translational initiation	GO:0007155_cell adhesion
+GO:0006413_translational initiation	GO:0010467_gene expression
+GO:0006413_translational initiation	GO:0042403_thyroid hormone metabolic process
+GO:0006413_translational initiation	GO:0045761_regulation of adenylate cyclase activity
+GO:0006413_translational initiation	GO:0050665_hydrogen peroxide biosynthetic process
+GO:0006413_translational initiation	GO:0099590_neurotransmitter receptor internalizatio...
+GO:0006415_translational termination	GO:0000278_mitotic cell cycle
+GO:0006415_translational termination	GO:0032535_regulation of cellular component size
+GO:0006415_translational termination	GO:0042403_thyroid hormone metabolic process
+GO:0006415_translational termination	GO:0050863_regulation of T cell activation
+GO:0006415_translational termination	GO:1901652_response to peptide
+GO:0006874_cellular calcium ion homeostasis	GO:0002759_regulation of antimicrobial humoral resp...
+GO:0006874_cellular calcium ion homeostasis	GO:0042403_thyroid hormone metabolic process
+GO:0006874_cellular calcium ion homeostasis	GO:0120255_olefinic compound biosynthetic process
+GO:0010499_proteasomal ubiquitin-independent protei...	GO:0000278_mitotic cell cycle
+GO:0010499_proteasomal ubiquitin-independent protei...	GO:0006869_lipid transport
+GO:0010499_proteasomal ubiquitin-independent protei...	GO:0007155_cell adhesion
+GO:0010499_proteasomal ubiquitin-independent protei...	GO:0008033_tRNA processing
+GO:0010499_proteasomal ubiquitin-independent protei...	GO:0010035_response to inorganic substance
+GO:0010499_proteasomal ubiquitin-independent protei...	GO:0010608_posttranscriptional regulation of gene e...
+GO:0010499_proteasomal ubiquitin-independent protei...	GO:0014032_neural crest cell development
+GO:0010499_proteasomal ubiquitin-independent protei...	GO:0030335_positive regulation of cell migration
+GO:0010499_proteasomal ubiquitin-independent protei...	GO:0034440_lipid oxidation
+GO:0010499_proteasomal ubiquitin-independent protei...	GO:0042403_thyroid hormone metabolic process
+GO:0010499_proteasomal ubiquitin-independent protei...	GO:0048806_genitalia development
+GO:0010499_proteasomal ubiquitin-independent protei...	GO:0048863_stem cell differentiation
+GO:0010499_proteasomal ubiquitin-independent protei...	GO:0050435_amyloid-beta metabolic process
+GO:0010499_proteasomal ubiquitin-independent protei...	GO:0050678_regulation of epithelial cell proliferat...
+GO:0010499_proteasomal ubiquitin-independent protei...	GO:0051726_regulation of cell cycle
+GO:0010499_proteasomal ubiquitin-independent protei...	GO:1990266_neutrophil migration
+GO:0016226_iron-sulfur cluster assembly	GO:0000132_establishment of mitotic spindle orienta...
+GO:0016226_iron-sulfur cluster assembly	GO:0000278_mitotic cell cycle
+GO:0016226_iron-sulfur cluster assembly	GO:0001666_response to hypoxia
+GO:0016226_iron-sulfur cluster assembly	GO:0006620_posttranslational protein targeting to e...
+GO:0016226_iron-sulfur cluster assembly	GO:0006637_acyl-CoA metabolic process
+GO:0016226_iron-sulfur cluster assembly	GO:0006790_sulfur compound metabolic process
+GO:0016226_iron-sulfur cluster assembly	GO:0007155_cell adhesion
+GO:0016226_iron-sulfur cluster assembly	GO:0008033_tRNA processing
+GO:0016226_iron-sulfur cluster assembly	GO:0009636_response to toxic substance
+GO:0016226_iron-sulfur cluster assembly	GO:0010608_posttranscriptional regulation of gene e...
+GO:0016226_iron-sulfur cluster assembly	GO:0014706_striated muscle tissue development
+GO:0016226_iron-sulfur cluster assembly	GO:0030510_regulation of BMP signaling pathway
+GO:0016226_iron-sulfur cluster assembly	GO:0030520_intracellular estrogen receptor signalin...
+GO:0016226_iron-sulfur cluster assembly	GO:0030949_positive regulation of vascular endothel...
+GO:0016226_iron-sulfur cluster assembly	GO:0031297_replication fork processing
+GO:0016226_iron-sulfur cluster assembly	GO:0031647_regulation of protein stability
+GO:0016226_iron-sulfur cluster assembly	GO:0032535_regulation of cellular component size
+GO:0016226_iron-sulfur cluster assembly	GO:0032680_regulation of tumor necrosis factor prod...
+GO:0016226_iron-sulfur cluster assembly	GO:0034332_adherens junction organization
+GO:0016226_iron-sulfur cluster assembly	GO:0036297_interstrand cross-link repair
+GO:0016226_iron-sulfur cluster assembly	GO:0043244_regulation of protein-containing complex...
+GO:0016226_iron-sulfur cluster assembly	GO:0043249_erythrocyte maturation
+GO:0016226_iron-sulfur cluster assembly	GO:0043652_engulfment of apoptotic cell
+GO:0016226_iron-sulfur cluster assembly	GO:0043966_histone H3 acetylation
+GO:0016226_iron-sulfur cluster assembly	GO:0045444_fat cell differentiation
+GO:0016226_iron-sulfur cluster assembly	GO:0045669_positive regulation of osteoblast differ...
+GO:0016226_iron-sulfur cluster assembly	GO:0046621_negative regulation of organ growth
+GO:0016226_iron-sulfur cluster assembly	GO:0048512_circadian behavior
+GO:0016226_iron-sulfur cluster assembly	GO:0048806_genitalia development
+GO:0016226_iron-sulfur cluster assembly	GO:0050435_amyloid-beta metabolic process
+GO:0016226_iron-sulfur cluster assembly	GO:0050863_regulation of T cell activation
+GO:0016226_iron-sulfur cluster assembly	GO:0051048_negative regulation of secretion
+GO:0016226_iron-sulfur cluster assembly	GO:0051258_protein polymerization
+GO:0016226_iron-sulfur cluster assembly	GO:0051261_protein depolymerization
+GO:0016226_iron-sulfur cluster assembly	GO:0051298_centrosome duplication
+GO:0016226_iron-sulfur cluster assembly	GO:0051701_biological process involved in interacti...
+GO:0016226_iron-sulfur cluster assembly	GO:0071385_cellular response to glucocorticoid stim...
+GO:0016226_iron-sulfur cluster assembly	GO:0090278_negative regulation of peptide hormone s...
+GO:0016226_iron-sulfur cluster assembly	GO:0090305_nucleic acid phosphodiester bond hydroly...
+GO:0016226_iron-sulfur cluster assembly	GO:0150065_regulation of deacetylase activity
+GO:0016226_iron-sulfur cluster assembly	GO:1901652_response to peptide
+GO:0016226_iron-sulfur cluster assembly	GO:1904035_regulation of epithelial cell apoptotic ...
+GO:0016226_iron-sulfur cluster assembly	GO:1990266_neutrophil migration
+GO:0016226_iron-sulfur cluster assembly	GO:2000241_regulation of reproductive process
+GO:0016226_iron-sulfur cluster assembly	GO:2000378_negative regulation of reactive oxygen s...
+GO:0016226_iron-sulfur cluster assembly	GO:2000379_positive regulation of reactive oxygen s...
+GO:0016226_iron-sulfur cluster assembly	GO:2001240_negative regulation of extrinsic apoptot...
+GO:0019288_isopentenyl diphosphate biosynthetic pro...	GO:0003333_amino acid transmembrane transport
+GO:0019288_isopentenyl diphosphate biosynthetic pro...	GO:0010951_negative regulation of endopeptidase act...
+GO:0019288_isopentenyl diphosphate biosynthetic pro...	GO:0030855_epithelial cell differentiation
+GO:0019288_isopentenyl diphosphate biosynthetic pro...	GO:0052548_regulation of endopeptidase activity
+GO:0019288_isopentenyl diphosphate biosynthetic pro...	GO:0060429_epithelium development
+GO:0022900_electron transport chain	GO:0000278_mitotic cell cycle
+GO:0022900_electron transport chain	GO:0001666_response to hypoxia
+GO:0022900_electron transport chain	GO:0006869_lipid transport
+GO:0022900_electron transport chain	GO:0007155_cell adhesion
+GO:0022900_electron transport chain	GO:0008033_tRNA processing
+GO:0022900_electron transport chain	GO:0010467_gene expression
+GO:0022900_electron transport chain	GO:0010608_posttranscriptional regulation of gene e...
+GO:0022900_electron transport chain	GO:0014706_striated muscle tissue development
+GO:0022900_electron transport chain	GO:0030335_positive regulation of cell migration
+GO:0022900_electron transport chain	GO:0030520_intracellular estrogen receptor signalin...
+GO:0022900_electron transport chain	GO:0031398_positive regulation of protein ubiquitin...
+GO:0022900_electron transport chain	GO:0031647_regulation of protein stability
+GO:0022900_electron transport chain	GO:0032535_regulation of cellular component size
+GO:0022900_electron transport chain	GO:0043171_peptide catabolic process
+GO:0022900_electron transport chain	GO:0043244_regulation of protein-containing complex...
+GO:0022900_electron transport chain	GO:0046621_negative regulation of organ growth
+GO:0022900_electron transport chain	GO:0048806_genitalia development
+GO:0022900_electron transport chain	GO:0050678_regulation of epithelial cell proliferat...
+GO:0022900_electron transport chain	GO:0051225_spindle assembly
+GO:0022900_electron transport chain	GO:0051258_protein polymerization
+GO:0022900_electron transport chain	GO:0051261_protein depolymerization
+GO:0022900_electron transport chain	GO:0051345_positive regulation of hydrolase activit...
+GO:0022900_electron transport chain	GO:0051726_regulation of cell cycle
+GO:0022900_electron transport chain	GO:0090305_nucleic acid phosphodiester bond hydroly...
+GO:0022900_electron transport chain	GO:1901617_organic hydroxy compound biosynthetic pr...
+GO:0022900_electron transport chain	GO:1903362_regulation of cellular protein catabolic...
+GO:0022900_electron transport chain	GO:1904035_regulation of epithelial cell apoptotic ...
+GO:0032515_negative regulation of phosphoprotein ph...	GO:0010467_gene expression
+GO:0032790_ribosome disassembly	GO:0010467_gene expression
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0000278_mitotic cell cycle
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0002763_positive regulation of myeloid leukocyte...
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0003333_amino acid transmembrane transport
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0006091_generation of precursor metabolites and ...
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0006110_regulation of glycolytic process
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0006508_proteolysis
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0006635_fatty acid beta-oxidation
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0006790_sulfur compound metabolic process
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0006869_lipid transport
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0009653_anatomical structure morphogenesis
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0010035_response to inorganic substance
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0010224_response to UV-B
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0010467_gene expression
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0010561_negative regulation of glycoprotein bios...
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0010608_posttranscriptional regulation of gene e...
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0010717_regulation of epithelial to mesenchymal ...
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0014706_striated muscle tissue development
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0015807_L-amino acid transport
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0030335_positive regulation of cell migration
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0030510_regulation of BMP signaling pathway
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0030574_collagen catabolic process
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0030855_epithelial cell differentiation
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0031398_positive regulation of protein ubiquitin...
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0031647_regulation of protein stability
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0032386_regulation of intracellular transport
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0032535_regulation of cellular component size
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0034332_adherens junction organization
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0042220_response to cocaine
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0042403_thyroid hormone metabolic process
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0043114_regulation of vascular permeability
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0043171_peptide catabolic process
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0043278_response to morphine
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0045444_fat cell differentiation
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0046621_negative regulation of organ growth
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0048512_circadian behavior
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0048806_genitalia development
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0048863_stem cell differentiation
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0050863_regulation of T cell activation
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0050885_neuromuscular process controlling balanc...
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0051258_protein polymerization
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0051345_positive regulation of hydrolase activit...
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0051701_biological process involved in interacti...
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0051726_regulation of cell cycle
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0052548_regulation of endopeptidase activity
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0060429_epithelium development
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0070664_negative regulation of leukocyte prolife...
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0071385_cellular response to glucocorticoid stim...
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0090278_negative regulation of peptide hormone s...
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:0150065_regulation of deacetylase activity
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:1901652_response to peptide
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:1902895_positive regulation of pri-miRNA transcr...
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:1903800_positive regulation of production of miR...
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:1904035_regulation of epithelial cell apoptotic ...
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:2000378_negative regulation of reactive oxygen s...
+GO:0043161_proteasome-mediated ubiquitin-dependent ...	GO:2001240_negative regulation of extrinsic apoptot...
+GO:0044409_entry into host	GO:0006620_posttranslational protein targeting to e...
+GO:0044409_entry into host	GO:0006978_DNA damage response, signal transduction...
+GO:0044409_entry into host	GO:0007135_meiosis II
+GO:0044409_entry into host	GO:0007155_cell adhesion
+GO:0044409_entry into host	GO:0007379_segment specification
+GO:0044409_entry into host	GO:0007602_phototransduction
+GO:0044409_entry into host	GO:0009653_anatomical structure morphogenesis
+GO:0044409_entry into host	GO:0010467_gene expression
+GO:0044409_entry into host	GO:0010561_negative regulation of glycoprotein bios...
+GO:0044409_entry into host	GO:0010975_regulation of neuron projection developm...
+GO:0044409_entry into host	GO:0016081_synaptic vesicle docking
+GO:0044409_entry into host	GO:0032222_regulation of synaptic transmission, cho...
+GO:0044409_entry into host	GO:0034116_positive regulation of heterotypic cell-...
+GO:0044409_entry into host	GO:0035633_maintenance of blood-brain barrier
+GO:0044409_entry into host	GO:0042403_thyroid hormone metabolic process
+GO:0044409_entry into host	GO:0042771_intrinsic apoptotic signaling pathway in...
+GO:0044409_entry into host	GO:0044331_cell-cell adhesion mediated by cadherin
+GO:0044409_entry into host	GO:0045187_regulation of circadian sleep/wake cycle...
+GO:0044409_entry into host	GO:0048863_stem cell differentiation
+GO:0044409_entry into host	GO:0050665_hydrogen peroxide biosynthetic process
+GO:0044409_entry into host	GO:0051298_centrosome duplication
+GO:0044409_entry into host	GO:0051726_regulation of cell cycle
+GO:0044409_entry into host	GO:0060080_inhibitory postsynaptic potential
+GO:0044409_entry into host	GO:0071816_tail-anchored membrane protein insertion...
+GO:0044409_entry into host	GO:0098814_spontaneous synaptic transmission
+GO:0044409_entry into host	GO:0099590_neurotransmitter receptor internalizatio...
+GO:0044409_entry into host	GO:0150065_regulation of deacetylase activity
+GO:0044409_entry into host	GO:1990266_neutrophil migration
+GO:0044409_entry into host	GO:2000379_positive regulation of reactive oxygen s...
+GO:0046940_nucleoside monophosphate phosphorylation	GO:0006508_proteolysis
+GO:0046940_nucleoside monophosphate phosphorylation	GO:0008033_tRNA processing
+GO:0046940_nucleoside monophosphate phosphorylation	GO:0015807_L-amino acid transport
+GO:0046940_nucleoside monophosphate phosphorylation	GO:0019725_cellular homeostasis
+GO:0046940_nucleoside monophosphate phosphorylation	GO:0045444_fat cell differentiation
+GO:0046940_nucleoside monophosphate phosphorylation	GO:0048806_genitalia development
+GO:0046940_nucleoside monophosphate phosphorylation	GO:0048863_stem cell differentiation
+GO:0046940_nucleoside monophosphate phosphorylation	GO:0050678_regulation of epithelial cell proliferat...
+GO:0048870_cell motility	GO:0042403_thyroid hormone metabolic process
+GO:0055085_transmembrane transport	GO:0000132_establishment of mitotic spindle orienta...
+GO:0055085_transmembrane transport	GO:0001711_endodermal cell fate commitment
+GO:0055085_transmembrane transport	GO:0003333_amino acid transmembrane transport
+GO:0055085_transmembrane transport	GO:0006091_generation of precursor metabolites and ...
+GO:0055085_transmembrane transport	GO:0006406_mRNA export from nucleus
+GO:0055085_transmembrane transport	GO:0006635_fatty acid beta-oxidation
+GO:0055085_transmembrane transport	GO:0006636_unsaturated fatty acid biosynthetic proc...
+GO:0055085_transmembrane transport	GO:0006700_C21-steroid hormone biosynthetic process
+GO:0055085_transmembrane transport	GO:0006704_glucocorticoid biosynthetic process
+GO:0055085_transmembrane transport	GO:0006730_one-carbon metabolic process
+GO:0055085_transmembrane transport	GO:0006978_DNA damage response, signal transduction...
+GO:0055085_transmembrane transport	GO:0007155_cell adhesion
+GO:0055085_transmembrane transport	GO:0007602_phototransduction
+GO:0055085_transmembrane transport	GO:0010224_response to UV-B
+GO:0055085_transmembrane transport	GO:0010310_regulation of hydrogen peroxide metaboli...
+GO:0055085_transmembrane transport	GO:0010566_regulation of ketone biosynthetic proces...
+GO:0055085_transmembrane transport	GO:0015804_neutral amino acid transport
+GO:0055085_transmembrane transport	GO:0015807_L-amino acid transport
+GO:0055085_transmembrane transport	GO:0016081_synaptic vesicle docking
+GO:0055085_transmembrane transport	GO:0021756_striatum development
+GO:0055085_transmembrane transport	GO:0031647_regulation of protein stability
+GO:0055085_transmembrane transport	GO:0032680_regulation of tumor necrosis factor prod...
+GO:0055085_transmembrane transport	GO:0032786_positive regulation of DNA-templated tra...
+GO:0055085_transmembrane transport	GO:0034332_adherens junction organization
+GO:0055085_transmembrane transport	GO:0036297_interstrand cross-link repair
+GO:0055085_transmembrane transport	GO:0042220_response to cocaine
+GO:0055085_transmembrane transport	GO:0043114_regulation of vascular permeability
+GO:0055085_transmembrane transport	GO:0043278_response to morphine
+GO:0055085_transmembrane transport	GO:0044331_cell-cell adhesion mediated by cadherin
+GO:0055085_transmembrane transport	GO:0060019_radial glial cell differentiation
+GO:0055085_transmembrane transport	GO:0060080_inhibitory postsynaptic potential
+GO:0055085_transmembrane transport	GO:0071385_cellular response to glucocorticoid stim...
+GO:0055085_transmembrane transport	GO:0072010_glomerular epithelium development
+GO:0055085_transmembrane transport	GO:0098712_L-glutamate import across plasma membran...
+GO:0055085_transmembrane transport	GO:1902895_positive regulation of pri-miRNA transcr...
+GO:0055085_transmembrane transport	GO:1903800_positive regulation of production of miR...
+GO:0055085_transmembrane transport	GO:1904035_regulation of epithelial cell apoptotic ...
+GO:0055085_transmembrane transport	GO:1990573_potassium ion import across plasma membr...
+GO:0055085_transmembrane transport	GO:2000379_positive regulation of reactive oxygen s...
+GO:0071577_zinc ion transmembrane transport	GO:0010467_gene expression
+GO:0071976_cell gliding	GO:0006508_proteolysis
+GO:0071976_cell gliding	GO:0006869_lipid transport
+GO:0071976_cell gliding	GO:0007268_chemical synaptic transmission
+GO:0071976_cell gliding	GO:0009653_anatomical structure morphogenesis
+GO:0071976_cell gliding	GO:0010467_gene expression
+GO:0071976_cell gliding	GO:0019725_cellular homeostasis
+GO:0071976_cell gliding	GO:0030335_positive regulation of cell migration
+GO:0071976_cell gliding	GO:0048863_stem cell differentiation
+GO:0071976_cell gliding	GO:0051726_regulation of cell cycle
+GO:0071976_cell gliding	GO:0052548_regulation of endopeptidase activity
+GO:0071976_cell gliding	GO:0060429_epithelium development
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0003081_regulation of systemic arterial blood pr...
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0006270_DNA replication initiation
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0006406_mRNA export from nucleus
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0006620_posttranslational protein targeting to e...
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0006636_unsaturated fatty acid biosynthetic proc...
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0006885_regulation of pH
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0006978_DNA damage response, signal transduction...
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0007135_meiosis II
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0010224_response to UV-B
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0010561_negative regulation of glycoprotein bios...
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0010566_regulation of ketone biosynthetic proces...
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0010975_regulation of neuron projection developm...
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0015804_neutral amino acid transport
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0015807_L-amino acid transport
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0016081_synaptic vesicle docking
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0019359_nicotinamide nucleotide biosynthetic pro...
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0030574_collagen catabolic process
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0031297_replication fork processing
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0032222_regulation of synaptic transmission, cho...
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0032680_regulation of tumor necrosis factor prod...
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0032786_positive regulation of DNA-templated tra...
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0042220_response to cocaine
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0043114_regulation of vascular permeability
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0043278_response to morphine
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0043652_engulfment of apoptotic cell
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0043966_histone H3 acetylation
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0044331_cell-cell adhesion mediated by cadherin
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0045141_meiotic telomere clustering
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0045187_regulation of circadian sleep/wake cycle...
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0045761_regulation of adenylate cyclase activity
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0046621_negative regulation of organ growth
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0048512_circadian behavior
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0050435_amyloid-beta metabolic process
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0050665_hydrogen peroxide biosynthetic process
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0051048_negative regulation of secretion
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0051298_centrosome duplication
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0051701_biological process involved in interacti...
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0090305_nucleic acid phosphodiester bond hydroly...
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0099590_neurotransmitter receptor internalizatio...
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:0150065_regulation of deacetylase activity
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:1900078_positive regulation of cellular response...
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:1901264_carbohydrate derivative transport
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:1902993_positive regulation of amyloid precursor...
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:1990266_neutrophil migration
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:2000378_negative regulation of reactive oxygen s...
+GO:0090305_nucleic acid phosphodiester bond hydroly...	GO:2001240_negative regulation of extrinsic apoptot...
+GO:0098609_cell-cell adhesion	GO:0000278_mitotic cell cycle
+GO:0098609_cell-cell adhesion	GO:0006790_sulfur compound metabolic process
+GO:0098609_cell-cell adhesion	GO:0006869_lipid transport
+GO:0098609_cell-cell adhesion	GO:0007155_cell adhesion
+GO:0098609_cell-cell adhesion	GO:0010608_posttranscriptional regulation of gene e...
+GO:0098609_cell-cell adhesion	GO:0019725_cellular homeostasis
+GO:0098609_cell-cell adhesion	GO:0030335_positive regulation of cell migration
+GO:0098609_cell-cell adhesion	GO:0030510_regulation of BMP signaling pathway
+GO:0098609_cell-cell adhesion	GO:0030855_epithelial cell differentiation
+GO:0098609_cell-cell adhesion	GO:0031647_regulation of protein stability
+GO:0098609_cell-cell adhesion	GO:0034440_lipid oxidation
+GO:0098609_cell-cell adhesion	GO:0042220_response to cocaine
+GO:0098609_cell-cell adhesion	GO:0043278_response to morphine
+GO:0098609_cell-cell adhesion	GO:0045444_fat cell differentiation
+GO:0098609_cell-cell adhesion	GO:0046621_negative regulation of organ growth
+GO:0098609_cell-cell adhesion	GO:0048806_genitalia development
+GO:0098609_cell-cell adhesion	GO:0050678_regulation of epithelial cell proliferat...
+GO:0098609_cell-cell adhesion	GO:0051258_protein polymerization
+GO:0098609_cell-cell adhesion	GO:0051726_regulation of cell cycle
+GO:0098609_cell-cell adhesion	GO:0052548_regulation of endopeptidase activity
+GO:0098609_cell-cell adhesion	GO:0060429_epithelium development
+GO:0098609_cell-cell adhesion	GO:0072010_glomerular epithelium development
+GO:0098609_cell-cell adhesion	GO:1901652_response to peptide
+GO:0098609_cell-cell adhesion	GO:1904035_regulation of epithelial cell apoptotic ...
+GO:0098869_cellular oxidant detoxification	GO:0006508_proteolysis
+GO:0098869_cellular oxidant detoxification	GO:0006869_lipid transport
+GO:0098869_cellular oxidant detoxification	GO:0009653_anatomical structure morphogenesis
+GO:0098869_cellular oxidant detoxification	GO:0010467_gene expression
+GO:0098869_cellular oxidant detoxification	GO:0030855_epithelial cell differentiation
+GO:0098869_cellular oxidant detoxification	GO:0052548_regulation of endopeptidase activity
+GO:0098869_cellular oxidant detoxification	GO:0060429_epithelium development
+GO:0098869_cellular oxidant detoxification	GO:0120255_olefinic compound biosynthetic process
+GO:0098869_cellular oxidant detoxification	GO:1990266_neutrophil migration
