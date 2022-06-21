@@ -40,6 +40,37 @@ PermAsso <- function()
   return(perm)
 }
 
+## for the combined analysis of blood and liver, the runs in blood had to be samples to consider the same number as the liver
+## The commented code below is an example of how to compute gene coexpression using the blood and liver data sets
+
+# random sampling to hopefully retain runs from every blood study
+# An example:
+# Original correlation coefficients, the test statistic
+# set.seed(123)
+# # sample columns from blood overall data set
+# blood <- sample(colnames(blood.overall.ortho), ncol(liver.overall.ortho))
+# 
+# # put together chosen blood columns and liver overall data set
+# blood.liver.overall <- data.frame(blood.overall.ortho[,blood], liver.overall.ortho)
+# 
+# # original cor using this data set
+# system.time(blood.liver.ori_cor <- cor(blood.liver.overall, use = 'pairwise.complete.obs'))
+# n <- nrow(blood.liver.overall)
+# 
+# reps <- 1000
+# 
+# PermAsso <- function()
+# {
+#   perm <- foreach(i=1:reps, .combine = "+") %do%
+#     {
+#       blood <- sample(colnames(blood.overall.ortho), ncol(liver.overall.ortho))
+#       blood.liver.overall <- data.frame(blood.overall.ortho[,blood], liver.overall.ortho)
+#       # Creating the null distribution here
+#       (abs(cor(blood.liver.overall, blood.liver.overall[sample(n, n),], use = 'pairwise.complete.obs') >= abs(blood.liver.ori_cor) +0))
+#     }
+#   return(perm)
+# }
+
 PermAssoCompiled <- compiler::cmpfun(PermAsso)
 
 outer_reps <- 10
