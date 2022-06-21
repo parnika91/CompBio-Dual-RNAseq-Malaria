@@ -119,9 +119,6 @@ colnames(join_df) <- c("Orthogroup",paste0(dataset, "_dg", collapse = ""),
                        #paste0(dataset, "_kc", collapse = "")
                        )
 
-liver_RGR_MIS <- left_join(liver_RGR_MIS, join_df)
-
-
 RGR_MIS_phenotype = readRDS("RGR_MIS_phenotype.rds")
 RGR_MIS_phenotype <- left_join(RGR_MIS_phenotype, join_df)
 saveRDS(RGR_MIS_phenotype, file = "RGR_MIS_phenotype.rds")
@@ -212,3 +209,58 @@ ggplot(data=RGR_MIS_phenotype, aes(x=RGR_MIS_phenotype[,c(paste0(dataset, "_ec",
 ggsave("MIS_vs_EC.png")
 
 stargazer(models_list, title="Results", align=TRUE, type = "text")
+
+
+################# liver stage analysis #################
+
+if(dataset =="liver_overall")
+{
+  data <- readRDS("liver_all_para.rds")
+}else if(dataset =="liver_core")
+{
+  
+  data <- readRDS("liver_core_para.rds")
+}
+
+d <- data.frame(gene1 = as.character(data[,1]), gene2 = as.character(data[,2]))
+ig <- graph_from_data_frame(d, directed = F)
+E(ig)$weight = data[,3]
+
+dg_p <- dg[grep(pattern = "p_OG", names(dg))]
+dg_df <- as.data.frame(dg_p) %>%
+  tibble::rownames_to_column("Orthogroup")
+
+ec_p <- ec$vector[grep(pattern = "p_OG", names(ec$vector))]
+ec_df <- as.data.frame(ec_p) %>%
+  tibble::rownames_to_column("Orthogroup")
+
+
+join_df <-plyr::join_all(list(dg_df, #bw_df, cl_df,
+                              ec_df#, kc_df
+), by = "Orthogroup", type = "full")
+
+join_df[is.na(join_df)] <- 0
+
+colnames(join_df) <- c("Orthogroup",paste0(dataset, "_liv_dg", collapse = ""),
+                       #paste0(dataset, "_bw", collapse = ""),
+                       #paste0(dataset, "_cl", collapse = ""),
+                       paste0(dataset, "_liv_ec", collapse = "")
+                       #paste0(dataset, "_kc", collapse = "")
+)
+
+RGR_MIS_phenotype = readRDS("RGR_MIS_phenotype.rds")
+RGR_MIS_phenotype <- left_join(RGR_MIS_phenotype, join_df)
+saveRDS(RGR_MIS_phenotype, file = "RGR_MIS_phenotype.rds")
+
+#### liver models
+
+ec_rgr <- betareg(data = RGR_MIS_phenotype, RGR ~ RGR_MIS_phenotype[,c(paste0(dataset, "_liv_ec", collapse = ""))])
+ec_mis <- betareg(data = RGR_MIS_phenotype, MIS ~ RGR_MIS_phenotype[,c(paste0(dataset, "_liv_ec", collapse = ""))])
+
+############## liver core:blood core interaction models
+
+bl_liv_ec_rgr <- betareg(data = RGR_MIS_phenotype, RGR ~ 
+                           RGR_MIS_phenotype[,c(paste0(dataset, "_ec", collapse = ""))]:RGR_MIS_phenotype[,c(paste0(dataset, "_liv_ec", collapse = ""))])
+
+bl_liv_ec_mis <- betareg(data = RGR_MIS_phenotype, MIS ~ 
+                           RGR_MIS_phenotype[,c(paste0(dataset, "_ec", collapse = ""))]:RGR_MIS_phenotype[,c(paste0(dataset, "_liv_ec", collapse = ""))])
