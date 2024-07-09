@@ -31,7 +31,7 @@ blood_core_para_edges <- function()
   "SRP118827_all", "SRP116793_all", "SRP118996_all", "SRP116593_int", "SRP108356_str", "SRP118503_int")
 
   for(i in studies)
-    readRDS(paste0(substr(i, 1, 9), "/cor/", i, "_para.rds", collapse = "")) %>%
+    readRDS(paste0("../results/",substr(i, 1, 9), "/cor/", i, "_para.rds", collapse = "")) %>%
     unite("pp", ends_with("gene1"):ends_with("gene2"), remove = F) %>%
     select(pp) %>%
     mutate("{substr(i, 1, 9)}_c" := rep(1, length(.))) -> study_list[[i]]
@@ -69,11 +69,11 @@ blood_core_para_edges <- function()
 
 if(dataset =="overall")
 {
-  data <- readRDS("blood_all_para.rds")
+  data <- readRDS("../results/blood_all_para.rds")
 }else
 {
   #data <- blood_core_para_edges()
-  data <- readRDS("blood_core_para.rds")
+  data <- readRDS("../results/blood_core_para.rds")
 }
 
 
@@ -119,9 +119,9 @@ colnames(join_df) <- c("Orthogroup",paste0(dataset, "_dg", collapse = ""),
                        #paste0(dataset, "_kc", collapse = "")
                        )
 
-RGR_MIS_phenotype = readRDS("RGR_MIS_phenotype.rds")
+RGR_MIS_phenotype = readRDS("../results/RGR_MIS_phenotype.rds")
 RGR_MIS_phenotype <- left_join(RGR_MIS_phenotype, join_df)
-saveRDS(RGR_MIS_phenotype, file = "RGR_MIS_phenotype.rds")
+saveRDS(RGR_MIS_phenotype, file = "../results/RGR_MIS_phenotype.rds")
 
 ### models ###
 
@@ -183,7 +183,7 @@ model_table <- function(models)
 
 models_table <- model_table(models_list)
 
-write.table(models_table, paste0(dataset, "_models_table_exp.txt", collapse = ""), sep = '\t', row.names = F)
+write.table(models_table, paste0("../results/",dataset, "_models_table_exp.txt", collapse = ""), sep = '\t', row.names = F)
 
 
 ## RGR plots ##
@@ -195,7 +195,7 @@ ggplot(data=RGR_MIS_phenotype, aes(x=RGR_MIS_phenotype[,c(paste0(dataset, "_ec",
   ggtitle("Relative growth rate vs eigen centrality") +
   xlab("Eigenvector centrality") + 
   ylab("Relative Growth Rate")
-ggsave("RGR_vs_EC.png")
+ggsave("../results/RGR_vs_EC.png")
 
 ## MIS plots ##
 ggplot(data=RGR_MIS_phenotype, aes(x=RGR_MIS_phenotype[,c(paste0(dataset, "_ec", collapse = ""))], y=MIS, colour = phenotype.y))+
@@ -206,7 +206,7 @@ ggplot(data=RGR_MIS_phenotype, aes(x=RGR_MIS_phenotype[,c(paste0(dataset, "_ec",
   ggtitle("Mutagenesis index score vs eigen centrality") +
   xlab("Eigenvector centrality") + 
   ylab("Mutagenesis Index Score")
-ggsave("MIS_vs_EC.png")
+ggsave("../results/MIS_vs_EC.png")
 
 stargazer(models_list, title="Results", align=TRUE, type = "text")
 
@@ -215,11 +215,11 @@ stargazer(models_list, title="Results", align=TRUE, type = "text")
 
 if(dataset =="liver_overall")
 {
-  data <- readRDS("liver_all_para.rds")
+  data <- readRDS("../results/liver_all_para.rds")
 }else if(dataset =="liver_core")
 {
   
-  data <- readRDS("liver_core_para.rds")
+  data <- readRDS("../results/liver_core_para.rds")
 }
 
 d <- data.frame(gene1 = as.character(data[,1]), gene2 = as.character(data[,2]))
@@ -248,9 +248,9 @@ colnames(join_df) <- c("Orthogroup",paste0(dataset, "_liv_dg", collapse = ""),
                        #paste0(dataset, "_kc", collapse = "")
 )
 
-RGR_MIS_phenotype = readRDS("RGR_MIS_phenotype.rds")
+RGR_MIS_phenotype = readRDS("../results/RGR_MIS_phenotype.rds")
 RGR_MIS_phenotype <- left_join(RGR_MIS_phenotype, join_df)
-saveRDS(RGR_MIS_phenotype, file = "RGR_MIS_phenotype.rds")
+saveRDS(RGR_MIS_phenotype, file = "../results/RGR_MIS_phenotype.rds")
 
 #### liver models
 

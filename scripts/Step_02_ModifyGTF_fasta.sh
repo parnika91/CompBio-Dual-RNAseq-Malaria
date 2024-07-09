@@ -3,7 +3,7 @@
 # This is only an example:
 # The objective is to 
 # 1. Remove all commented lines from the GTF files
-# 2. Renaming the chromosomes/contigs to be the same in the fasta and gtf files.
+# 2. Renaming the chromosomes/contigs to be the same in the fasta and gtf files only in case they are different
 # As an example, the P.vivax files could contain the prefix Pvi_chr for all the sequences/locations
 
 

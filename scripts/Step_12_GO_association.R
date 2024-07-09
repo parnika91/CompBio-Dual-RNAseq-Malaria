@@ -25,11 +25,11 @@ options(echo=TRUE)
 args <- commandArgs(TRUE)
 dataset <- args[1] # enter overall or core
 
-overall <- readRDS("blood_all_bipartite.rds")
+overall <- readRDS("../results/blood_all_bipartite.rds")
 
 if(dataset=="core")
 {
-  net <- readRDS("blood_core_network.rds"); colnames(net)[1] <- "host"; colnames(net)[2] <- "para"
+  net <- readRDS("../results/blood_core_network.rds"); colnames(net)[1] <- "host"; colnames(net)[2] <- "para"
   host_universe_for_core <- unique(as.character(overall[,1]))
   parasite_universe_for_core <- unique(as.character(overall[,2]))
 }else
@@ -38,7 +38,7 @@ if(dataset=="core")
 
 hostGOenr <- function(host_genes, GO)
 {
-	host_orthogroups <- read.delim("host_orthogroups.txt", stringsAsFactors=FALSE)
+	host_orthogroups <- read.delim("../data/host_orthogroups.txt", stringsAsFactors=FALSE)
 	host_genes <- data.frame(Orthogroup = host_genes)
   host_in <- inner_join(host_genes, host_orthogroups)
   host_in <- host_in[,c(1,3)]
@@ -99,7 +99,7 @@ paraGOenr <- function(para_genes, GO)
 {
 	para_in <- as.matrix(para_genes)
 	colnames(para_in)[1] <- "Orthogroup"
-	pOG <- read.delim("parasite_orthogroups.txt", 
+	pOG <- read.delim("../data/parasite_orthogroups.txt", 
                                    stringsAsFactors=FALSE)
 	geneID2GO <- readMappings(file = "p_OG_GOterms.txt") # 3659 genes
   all_res <- data.frame(GO.ID = "GO:000000", Term = "xyz", Annotated = 0, Significant = 0, Expected = 0, Fisher = 1, GenesForGOterm = "")
@@ -153,14 +153,14 @@ paraGOenr <- function(para_genes, GO)
 }
 
 # get host and parasite prthogroups
-pOG <- read.delim("parasite_orthogroups.txt", 
+pOG <- read.delim("../data/parasite_orthogroups.txt", 
                                    stringsAsFactors=FALSE)
-hOG <- read.delim("host_orthogroups.txt", stringsAsFactors=FALSE)
+hOG <- read.delim("../data/host_orthogroups.txt", stringsAsFactors=FALSE)
 
 # get host and parasite BP GO terms
-p_GO <- read.table(paste0("p_OG_topGO_BP_blood_", dataset, "_para_result.txt", collapse = ""), header = T, sep = '\t', stringsAsFactors=FALSE) %>%
+p_GO <- read.table(paste0("../results/p_OG_topGO_BP_blood_", dataset, "_para_result.txt", collapse = ""), header = T, sep = '\t', stringsAsFactors=FALSE) %>%
         dplyr::filter(KS <= 0.05)
-h_GO <- read.delim(paste0("Mmus_topGO_BP_blood_", dataset, "_host_result.txt", collapse = ''), header = T, sep = '\t', stringsAsFactors=FALSE) %>%
+h_GO <- read.delim(paste0("../results/Mmus_topGO_BP_blood_", dataset, "_host_result.txt", collapse = ''), header = T, sep = '\t', stringsAsFactors=FALSE) %>%
         dplyr::filter(KS <= 0.05)
 
 
@@ -193,7 +193,7 @@ for(i in 1:2)# nrow(p_GO)
 	names(GO_asso_from_parasite)[i] <- paste0(p_GO[i,"GO.ID"], "_", p_GO[i,"Term"])
 	}
 }
-saveRDS(GO_asso_from_parasite, file = "GO_asso_from_parasite.rds")
+saveRDS(GO_asso_from_parasite, file = "../results/GO_asso_from_parasite.rds")
 
 
 GO_asso_from_host <- list()
@@ -227,7 +227,7 @@ for(i in 1:2)# nrow(h_GO)
 	}
 }
 
-saveRDS(GO_asso_from_host, file = "GO_asso_from_host.rds")
+saveRDS(GO_asso_from_host, file = "../results/GO_asso_from_host.rds")
 
 # make GO term edges to visualise as networks
 
@@ -279,8 +279,8 @@ colnames(GO_asso_from_parasite_edges) <- c("Parasite", "Host")
 GO_asso <- full_join(GO_asso_from_host_edges, GO_asso_from_parasite_edges) %>%
   dplyr::distinct(.)
 
-saveRDS(GO_asso, file = paste0("GO_asso_", dataset, ".rds", collapse = ''))
-write.csv2(GO_asso, paste0("GO_asso_", dataset, ".csv", collapse = ''), row.names = F, quote = F)
+saveRDS(GO_asso, file = paste0("../results/GO_asso_", dataset, ".rds", collapse = ''))
+write.csv2(GO_asso, paste0("../results/GO_asso_", dataset, ".csv", collapse = ''), row.names = F, quote = F)
 
 
 # attach node properties to the GO asso network
@@ -290,4 +290,4 @@ GO_asso_nodes_parasite <- data.frame(Term = unique(c(unique(as.character(GO_asso
 GO_asso_nodes <- data.frame(Term = c(GO_asso_nodes_host[,1], GO_asso_nodes_parasite[,1]), 
   Organism = c(rep("Host", length(GO_asso_nodes_host[,1])), rep("Parasite", length(GO_asso_nodes_parasite[,1]))))
 
-write.csv2(GO_asso_nodes, paste0("GO_asso_nodes_", dataset, ".csv", collapse = ''), row.names = F, quote = F)
+write.csv2(GO_asso_nodes, paste0("../results/GO_asso_nodes_", dataset, ".csv", collapse = ''), row.names = F, quote = F)

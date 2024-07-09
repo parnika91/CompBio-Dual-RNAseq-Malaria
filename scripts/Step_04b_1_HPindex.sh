@@ -7,7 +7,7 @@ hp=$1
 echo "I am looking for $hp indices"
 
 # Check if indices already exist
-if [ -f Genomes/indices/$hp/genomeParameters.txt ]; then
+if [ -f ../Genomes/indices/$hp/genomeParameters.txt ]; then
   echo "Indexed files exist"
 else
   echo "Indexing $hp.fa now..."
@@ -25,9 +25,9 @@ else
     # Got gtf files, you dont need to specify gene parent and transcript parent
     index="STAR --runThreadN 8 \
     --runMode genomeGenerate \
-    --genomeDir Genomes/indices/$hp \
-    --genomeFastaFiles Genomes/fasta/{1} \
-    --sjdbGTFfile Genomes/annotation/{2} \
+    --genomeDir ../Genomes/indices/$hp \
+    --genomeFastaFiles ../Genomes/fasta/{1} \
+    --sjdbGTFfile ../Genomes/annotation/{2} \
     --limitGenomeGenerateRAM 210000000000"
 
     parallel --xapply $index {1} {2} ::: $hp.fa ::: $hp.gtf

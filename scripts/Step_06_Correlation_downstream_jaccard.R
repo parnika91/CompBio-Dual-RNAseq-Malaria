@@ -26,7 +26,7 @@ studyID <- "blood_overall"
 # to get total permutation score of a gene pair for further analysis
 sum <- matrix(rep(0, 17991*4005), nrow = 17991) #for hpxpp analysis - bipartite and parasite-parasite edges
 
-files <- grep(pattern = "outer_blood_overall_", list.files())
+files <- grep(pattern = "outer_blood_overall_", list.files("../"))
 file.names <- list.files()[files]
 
 for(i in 1:length(file.names))
@@ -76,7 +76,7 @@ unique_pg <- unique(as.character(pval0[grep(pattern = "p_OG", pval0$gene2),2]))
 bipartite <- pval0
 
 colnames(bipartite) <- sapply(colnames(bipartite), function(x) paste0(studyID,"_",type,"_",x, collapse = ''))
-saveRDS(bipartite, file = paste0(studyID,"_", type, "_bipartite.rds", collapse = ''))
+saveRDS(bipartite, file = paste0("../results/",studyID,"_", type, "_bipartite.rds", collapse = ''))
 
 ################### parasite-parasite part of the correlation matrix
 p_ori_cor <- ori_cor[13987:17991,]
@@ -96,7 +96,7 @@ ppval0 <- ppval_cor_na.omit[ppval_cor_na.omit$permute_score==0,]
 
 para <- ppval0
 colnames(para) <- sapply(colnames(para), function(x) paste0(studyID,"_",type,"_",x, collapse = ''))
-saveRDS(para, file =  paste0(studyID,"_", type, "_para.rds", collapse = ''))
+saveRDS(para, file =  paste0("../results/",studyID,"_", type, "_para.rds", collapse = ''))
 
 ##############################################################################################################
 
@@ -114,14 +114,14 @@ cor_coefs <- rbind(bipartite[,c(3,4)])
 colnames(cor_coefs) <- c("Correlation", "Score")
 
 cor_coefs$Group <- ifelse(cor_coefs$Score == 0, "0", "1")
-save(cor_coefs, file = "Cor_distribution.RData")
+save(cor_coefs, file = "../results/Cor_distribution.RData")
 
 p<-ggplot(cor_coefs, aes(x=Correlation, fill=Group)) +
   geom_density(alpha=0.4) +
   theme_bw()+
   xlab("Correlation coefficient [-1,1]") +
   theme(text = element_text(size = 15))
-ggsave(plot = p, "Cor_distribution.pdf")
+ggsave(plot = p, "../results/Cor_distribution.pdf")
 
 
 # for the plot in the Mukherjee et al. 2020 manuscript:
@@ -156,7 +156,7 @@ ggsave(plot = p, "Cor_distribution.pdf")
  
 ############################ Reduction in the number of bipartite edges with permutation score (uncorrected pvalue) 0 with increase in number of permutations
 
-hp <- t(loadRData("blood.ortho.data.RData"))
+hp <- t(loadRData("../results/blood.ortho.data.RData"))
 p <- hp[13987:17991,]
 
 ori_cor <- cor(t(hp), t(p), use = "pairwise.complete.obs")
@@ -224,7 +224,7 @@ colnames(bipartite_edges_cor_range) <- c("Perms", "cor", "hp.edges")
 df_melt <- melt(bipartite_edges_cor_range, id = c("Perms", "cor"))
 colnames(df_melt) <- c("Perms", "cor", "edge.type", "count")
 
-png("blood_overall_hp_edges_cor_range.png", width = 800, height = 500, units = "px")
+png("../results/blood_overall_hp_edges_cor_range.png", width = 800, height = 500, units = "px")
 edge.plot <- ggplot(df_melt, aes(x = Perms, y = count, colour = factor(cor))) +
   geom_line() + scale_x_continuous(breaks = seq(100000, 1000000, 100000), limits = c(100000, 1000000))+
   theme_bw() +
@@ -236,7 +236,7 @@ dev.off()
 
 ########### script to make annotation table for heatmaps #########
 
-allHPexp <- read.delim("allHPexp.txt", sep = ',', stringsAsFactors = F)
+allHPexp <- read.delim("../data/allHPexp.txt", sep = ',', stringsAsFactors = F)
 
 datasets <- c("DRP000987.ortho.data.all", "DRP000987.ortho.data.int", "DRP000987.ortho.data.str", 
               "ERP106451.ortho.data.all", "ERP106451.ortho.data.int", "ERP106451.ortho.data.str",
@@ -272,7 +272,7 @@ anno <- data.frame()
 
 for(i in 1:length(datasets))
 {
-  ds <- loadRData(paste0(str_sub(rn[i], 1, -5), "/cor/", datasets[i],".RData", collapse = ))
+  ds <- loadRData(paste0("../",str_sub(rn[i], 1, -5), "/cor/", datasets[i],".RData", collapse = ))
   runs <- sapply(colnames(ds), function(x) strsplit(x, split = "_")[[1]][1])
   
   pp <- sapply(runs, function(x) allHPexp[which(allHPexp$RunID==x),"ParaGenomeProp"])
@@ -320,7 +320,7 @@ list_ds <- list()
 l <- 0
 for(i in 1:length(studyID))
 {
-  ds <- loadRData(paste0(str_sub(studyID[i], 1, -5), "/cor/", studyID[i],"_bipartite.RData"))
+  ds <- loadRData(paste0("../", str_sub(studyID[i], 1, -5), "/cor/", studyID[i],"_bipartite.RData"))
   colnames(ds) <- sapply(colnames(ds), function(x) paste0(studyID[i],"_", feature, "_", x))
     
   list_ds[[paste0(studyID[i], "_bipartite_edges")]] <- ds
@@ -355,9 +355,9 @@ operations <- function(data, op, feature)
             for(j in 1:length(upset))
               mat[i,j] <- 2*length(intersect(upset[[i]], upset[[j]]))/(length(upset[[i]]) + length(upset[[j]]))
           rownames(mat) <- colnames(mat) <- names(upset)
-          save(mat, file = paste0(feature, "b_overlap_matrix_all_datasets_all_liver.RData"))
-          save(upset, file =  paste0(feature,"b_overlap_upset_all_datasets_all_liver.RData"))
-          write.table(mat,  paste0(feature, "b_overlap_matrix_all_datasets_all_liver.txt"), sep = '\t', row.names = T)
+          save(mat, file = paste0("../results/",feature, "b_overlap_matrix_all_datasets_all_liver.RData"))
+          save(upset, file =  paste0("../results/",feature,"../results/b_overlap_upset_all_datasets_all_liver.RData"))
+          write.table(mat,  paste0("../results/",feature, "../results/b_overlap_matrix_all_datasets_all_liver.txt"), sep = '\t', row.names = T)
           
           mat1 <- matrix(rep(0, (length(data)^2)), nrow = length(data), ncol = length(data))
           
@@ -365,8 +365,8 @@ operations <- function(data, op, feature)
             for(j in 1:length(upset))
               mat1[i,j] <- length(intersect(upset[[i]], upset[[j]]))
           rownames(mat1) <- colnames(mat1) <- names(upset)
-          save(mat1, file = paste0(feature, "b_overlap_raw_numbers_matrix_all_datasets_all_liver.RData"))
-          write.table(mat1,  paste0(feature, "b_overlap_raw_numbers_matrix_all_datasets_all_liver.txt"), sep = '\t', row.names = T)
+          save(mat1, file = paste0("../results/",feature, "b_overlap_raw_numbers_matrix_all_datasets_all_liver.RData"))
+          write.table(mat1,  paste0("../results/",feature, "b_overlap_raw_numbers_matrix_all_datasets_all_liver.txt"), sep = '\t', row.names = T)
         }
     
     if(n==1)
@@ -379,9 +379,9 @@ operations <- function(data, op, feature)
           mat[i,j] <- 2*length(intersect(data[[i]][,1], data[[j]][,1]))/(nrow(data[[i]]) + nrow(data[[j]]))
       
       rownames(mat) <- colnames(mat) <- names(upset)
-      save(mat, file = paste0(feature, "_overlap_matrix_all_datasets_liver.RData"))
-      save(upset, file =  paste0(feature,"_overlap_upset_all_datasets_liver.RData"))
-      write.table(mat,  paste0(feature, "_overlap_matrix_all_datasets_liver.txt"), sep = '\t', row.names = T)
+      save(mat, file = paste0("../results/",feature, "_overlap_matrix_all_datasets_liver.RData"))
+      save(upset, file =  paste0("../results/",feature,"_overlap_upset_all_datasets_liver.RData"))
+      write.table(mat,  paste0("../results/",feature, "_overlap_matrix_all_datasets_liver.txt"), sep = '\t', row.names = T)
      }
     res <- list(upset, mat)
   }
@@ -446,11 +446,11 @@ operations <- function(data, op, feature)
     rownames(sig.mat) <- str_sub(rownames(sig.mat), 1, -9)
     logt.sig.mat <- log10(1/(sig.mat + 1e-5))
     
-    save(sig, file = paste0(feature, "_overlap_signif_all_liver.RData"))
-    write.table(sig,  paste0(feature, "_overlap_signif_all_liver.txt"), sep = '\t', row.names = T)
-    save(sig.mat, file = paste0(feature, "_overlap_signif_all_liver_matrix.RData"))
-    write.table(sig.mat,  paste0(feature, "_overlap_signif_all_liver_matrix.txt"), sep = '\t', row.names = T)
-    save(logt.sig.mat, file = paste0(feature, "_logt_overlap_signif_all_liver_matrix.RData"))
+    save(sig, file = paste0("../results/",feature, "_overlap_signif_all_liver.RData"))
+    write.table(sig,  paste0("../results/",feature, "_overlap_signif_all_liver.txt"), sep = '\t', row.names = T)
+    save(sig.mat, file = paste0("../results/",feature, "_overlap_signif_all_liver_matrix.RData"))
+    write.table(sig.mat,  paste0("../results/",feature, "_overlap_signif_all_liver_matrix.txt"), sep = '\t', row.names = T)
+    save(logt.sig.mat, file = paste0("../results/",feature, "_logt_overlap_signif_all_liver_matrix.RData"))
     
   }
   return(res)
@@ -461,14 +461,14 @@ operations(data = list_ds, feature = "b_edges", op = "cor")
 colnames(mat1) <- sapply(colnames(mat1), function(x) str_sub(x, 1, -9))
 rownames(mat1) <- sapply(rownames(mat1), function(x) str_sub(x, 1, -9))
 
-pdf("pheatmap_b_edges_overlap.pdf" ) #, width = 20, height = 20, unit = "cm", res = 300
+pdf("../results/pheatmap_b_edges_overlap.pdf" ) #, width = 20, height = 20, unit = "cm", res = 300
 pheatmap::pheatmap(log10(mat1+1), annotation_row = anno, 
                    fontsize = 8, color = colorRampPalette(rev(brewer.pal(n = 7, name ="RdYlBu")))(100),
                    main = "Intersection size of bipartite edges",
                    cluster_cols = F, cluster_rows = T) #-log10(1/(sig.mat + 1e-06))
 dev.off()
 
-pdf("pheatmap_b_edges_significance.pdf")
+pdf("../results/pheatmap_b_edges_significance.pdf")
 pheatmap::pheatmap(sig.mat, annotation_row = anno, 
                    fontsize = 8, color = colorRampPalette(brewer.pal(n = 7, name ="RdYlBu"))(100),
                    main = "Significance of intersection size of bipartite edges",
@@ -512,7 +512,7 @@ rownames(jac) <- sapply(rownames(jac), function(x) str_sub(x, 1, -9))
 is.na(jac)<-sapply(jac, is.infinite)
 jac[is.na(jac)]<-8
 
-pdf("pheatmap_b_edges_jaccard.pdf")
+pdf("../results/pheatmap_b_edges_jaccard.pdf")
 pheatmap::pheatmap(jac, annotation_row = anno, 
                    fontsize = 8, color = colorRampPalette(brewer.pal(n = 7, name ="RdYlBu"))(100),
                    main = "Intersection size of bipartite edges - -log10(Jaccard Index)",

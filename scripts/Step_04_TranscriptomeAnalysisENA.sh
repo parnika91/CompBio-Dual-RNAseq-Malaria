@@ -7,7 +7,7 @@
 #   download sequence data, map them onto reference genomes and quantify gene expression
 #   
 #   To run this script, do:
-#   sh TranscriptomeAnalysisENA.sh <txt filename with all studies to analyse in a column>
+#   sh Step_04_TranscriptomeAnalysisENA.sh <txt filename with all studies to analyse in a column>
 #
 #   A study ID looks like this: SRP123456 or ERP123465 or DRP124356
 # 	To use this pipeline, the mapping tool STAR 2.7.5a was installed
@@ -30,8 +30,8 @@
 #	otherwise the reads cannot be counted as falling in a particular lcation on the chromosome.
 #	Make sure to download the same strains for each organism. Also check that they are named in the same way in the fa and gtf files by ensembl
 # 
-#   The indices of the the reference genomes can be created with STAR in advance and stored in Genomes/indices/$host$parasite/, e.g., Genomes/indices/humanPberghei/
-#   Or, they can be dynamically created if they are not found
+#   The indices of the the reference genomes can be created with STAR in advance and stored in ../Genomes/indices/$host$parasite/ relative to the scripts/ folder, e.g., ../Genomes/indices/humanPberghei/
+#   Or, they can be dynamically created if they are not found 
 #	Genomes/ folder has 3 subfolders: fasta/, annotation/ (for gtf files) and indices/
 #
 #	In parallel, OrthoFinder1.0.6 was used to get the single copy orthologous genes among the host and among the parasite species
@@ -52,34 +52,34 @@ st=$(cat $studies)
 printf "Current studies for analysis are \n$st\n"
 
 # to store all output files from the mapping step into one temp folder that can be deleted after the analysis and does not need to be backed up
-mkdir tmp
+mkdir ../tmp
 
 for studyID in $st; do
 
-	mkdir $studyID
+	mkdir ../$studyID
 
 	# As of now the runs_$studyID file has to be made manually, but I will try to put a python script here to extract this data from the ENA or SRA website
-	mv runs\_$studyID $studyID/
+	mv runs\_$studyID ../$studyID/
 
 	# The metadata is saved from ENA website in a file called $studyID_accession.txt which includes the ftp link for downloading the sequences in the 7th column
 	# The next line selects the 7th column and puts in a file called download.txt within the study folder 
 	# For paired end reads, the column provides two URLs per row separated by a space. For single end reads, there's just one URL in each row.
 
-	awk 'FS="\t", OFS="\t" { gsub("ftp.sra.ebi.ac.uk", "era-fasp@fasp.sra.ebi.ac.uk:"); print }' $studyID\_accession.txt | \
+	awk 'FS="\t", OFS="\t" { gsub("ftp.sra.ebi.ac.uk", "era-fasp@fasp.sra.ebi.ac.uk:"); print }' ../$studyID\_accession.txt | \
 	cut -f7 | awk -F ";" 'OFS=" " {print $1, $2}' | \
-	awk NF > $studyID/download.txt
+	awk NF > ../$studyID/download.txt
 
  	# The links in the download.txt file can be used qith aspera and/or sratoolkit to download the fastq files
  	# downloading several files in parallel:
 
-	parallel --eta -j 16 --link bash --verbose DownloadENA.sh ::: $(cat $studyID/download.txt)
+	parallel --eta -j 16 --link bash --verbose Step_04a_DownloadENAfastq.sh ::: $(cat ../$studyID/download.txt)
 
 	# All the fastq files are downloaded first - a bottleneck(!). 
 	# I will try to make it so that we don't have to wait all the files to be downloaded before the mapping can begin.
 	# But might as well - the downloading takes a bit of time unless well-parallelised.
 	# The script doallENA.sh maps the reads in a fastq file and sends the BAM files to an R script for gene expression quantification
 
-  	parallel --eta -j 3 --link bash --verbose doallENA.sh ::: $(cat $studyID/runs\_$studyID.txt)
+  	parallel --eta -j 3 --link bash --verbose Step_04b_0_doallENA.sh ::: $(cat ../$studyID/runs\_$studyID.txt)
 done
 
 exit

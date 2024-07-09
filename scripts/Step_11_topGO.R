@@ -153,11 +153,11 @@ options(echo=TRUE)
 args <- commandArgs(TRUE)
 dataset <- args[1] # overall or core
 
-overall <- readRDS("blood_all_bipartite.rds")
+overall <- readRDS("../results/blood_all_bipartite.rds")
 
 if(dataset=="core")
 {
-  net <- readRDS("blood_core_network.rds")
+  net <- readRDS("../results/blood_core_network.rds")
   host_universe_for_core <- unique(as.character(overall[,1]))
   parasite_universe_for_core <- unique(as.character(overall[,2]))
 }else
@@ -166,7 +166,7 @@ if(dataset=="core")
 para_genes <- unique(as.character(net[,2]))
 host_genes <- unique(as.character(net[,1]))
 
-pOG <- read.delim("parasite_orthogroups.txt", stringsAsFactors=FALSE)
+pOG <- read.delim("../data/parasite_orthogroups.txt", stringsAsFactors=FALSE)
 
 bip_studies <- dataset
 
@@ -236,11 +236,11 @@ for(m in 1:length(bip_studies))
     }
 
     all_res$GenesForGOterm <- GenesForGOterm
-    write.table(all_res, paste0("p_OG_topGO_", GeneOnt,"_", study, "_para_result.txt", collapse = ''), sep = '\t', row.names = F)
+    write.table(all_res, paste0("../data/p_OG_topGO_", GeneOnt,"_", study, "_para_result.txt", collapse = ''), sep = '\t', row.names = F)
     
     # Host
     # Background genes
-    host_orthogroups <- read.delim("~/Downloads/host_orthogroups.txt", stringsAsFactors=FALSE)
+    host_orthogroups <- read.delim("../data/host_orthogroups.txt", stringsAsFactors=FALSE)
     host_genes <- data.frame(Orthogroup = host_genes)
     host_in <- inner_join(host_genes, host_orthogroups)
     host_in <- host_in[,c(1,3)]
@@ -295,7 +295,7 @@ for(m in 1:length(bip_studies))
     }
     
     all_res$GenesForGOterm <- GenesForGOterm
-    write.table(all_res, paste0("Mmus_topGO_", GeneOnt,"_", study, "_host_result.txt", collapse = ''), sep = '\t', row.names = F)
+    write.table(all_res, paste0("../results/Mmus_topGO_", GeneOnt,"_", study, "_host_result.txt", collapse = ''), sep = '\t', row.names = F)
   }
 }
 

@@ -22,22 +22,22 @@ ConcatRunsToStudy <- data.frame()
 for(j in 1:length(studyIDs))
 {
   print(studyIDs[j])
-  runIDs <- read.table(paste0(studyIDs[j], "/runs_",studyIDs[j],".txt", collapse = ''), header = F, sep = ',')
+  runIDs <- read.table(paste0("../",studyIDs[j], "/runs_",studyIDs[j],".txt", collapse = ''), header = F, sep = ',')
   number_of_runs <- nrow(runIDs)
 
   if(number_of_runs == 1)
   {
     firstRun <- runIDs[1,1]
-    FirstCountfile <- read.table(paste0(studyIDs[j], "/countWithGFF3_",firstRun,".txt",collapse=''), header = T, sep = '\t')
-    write.table(FirstCountfile, paste0(studyIDs[j],"/ConcatRunsToStudy_", studyIDs[j],".txt"), sep = '\t', row.names=F)
+    FirstCountfile <- read.table(paste0("../",studyIDs[j], "/countWithGTF_",firstRun,".txt",collapse=''), header = T, sep = '\t')
+    write.table(FirstCountfile, paste0("../",studyIDs[j],"/ConcatRunsToStudy_", studyIDs[j],".txt"), sep = '\t', row.names=F)
   }
 
   if(number_of_runs > 1)
   {
     firstRun <- runIDs[1,1]
-    if(file.exists(paste0(studyIDs[j], "/countWithGFF3_",firstRun,".txt",collapse='')))
+    if(file.exists(paste0("../",studyIDs[j], "/countWithGTF_",firstRun,".txt",collapse='')))
     {
-      FirstCountfile <- read.table(paste0(studyIDs[j], "/countWithGFF3_",firstRun,".txt",collapse=''), header = T, sep = '\t')
+      FirstCountfile <- read.table(paste0("../",studyIDs[j], "/countWithGTF_",firstRun,".txt",collapse=''), header = T, sep = '\t')
       ConcatRunsToStudy <- FirstCountfile
       colnames(ConcatRunsToStudy)[6] <- paste0(as.character(firstRun), "_",as.character(studyIDs[j]),collapse='')
     }
@@ -47,9 +47,9 @@ for(j in 1:length(studyIDs))
     {
       runID <- runIDs[i,1]
       # get runID
-      if(file.exists(paste0( studyIDs[j], "/countWithGFF3_",runID,".txt",collapse='')))
+      if(file.exists(paste0("../", studyIDs[j], "/countWithGTF_",runID,".txt",collapse='')))
         {
-          countfile <- read.table(paste0(studyIDs[j], "/countWithGFF3_",runID,".txt",collapse=''), header = T, sep = '\t')
+          countfile <- read.table(paste0("../",studyIDs[j], "/countWithGTF_",runID,".txt",collapse=''), header = T, sep = '\t')
   
           ConcatRunsToStudy[1:nrow(FirstCountfile),(a+5)] <- countfile[,6]
           #ConcatRunsToStudy <- merge(ConcatRunsToStudy, countfile, by = c("seqnames", "start", "end", "width", "strand"))
@@ -57,24 +57,26 @@ for(j in 1:length(studyIDs))
           a = a+1
         }  
     }
-    write.table(ConcatRunsToStudy, paste0(studyIDs[j], "/ConcatRunsToStudy_", studyIDs[j],".txt", collapse=''), sep = '\t', row.names=F)
+    write.table(ConcatRunsToStudy, paste0("../",studyIDs[j], "/ConcatRunsToStudy_", studyIDs[j],".txt", collapse=''), sep = '\t', row.names=F)
   }
 }
 
 
 ################################# Step 2: Get gene names for all reads #################
+# make an ../Output folder relative to scripts/ where we currently are
+dir.create("../Output/")
 
 for( i in 1:length(studyIDs))
 {
   print(studyIDs[i])
-  study <- read.csv2(paste0(studyIDs[i], "/ConcatRunsToStudy_", studyIDs[i],".txt", collapse=''), sep = '\t', header=T)
+  study <- read.csv2(paste0("../",studyIDs[i], "/ConcatRunsToStudy_", studyIDs[i],".txt", collapse=''), sep = '\t', header=T)
   
   #get host and parasite
   
   host <- as.character(positive_experiments[grep(studyIDs[i],positive_experiments[,1]),2])
   para <- as.character(positive_experiments[grep(studyIDs[i],positive_experiments[,1]),3])
   
-  genes <- import(paste0("Genomes/annotation/",host,para,".gtf", collapse=''), format = "gtf")
+  genes <- import(paste0("../Genomes/annotation/",host,para,".gtf", collapse=''), format = "gtf")
   genes <- genes[genes$type%in%"exon"]
   genes.df <- as.data.frame(genes)
   genes.df.gene_name <- genes.df[,c("seqnames", "start", "end", "width", "strand", "gene_id")]
@@ -100,7 +102,7 @@ for( i in 1:length(studyIDs))
   colnames(t.study) <- mergeStudy.genes.df.gene_name.combineGenes$gene_id
   t.study <- t.study[-1,]
   class(t.study) <- "numeric"
-  write.table(t.study, paste0(studyIDs[i], "/", studyIDs[i],".txt", collapse=''), sep = '\t', row.names=T)
+  write.table(t.study, paste0("../Output/",studyIDs[i], "/", studyIDs[i],".txt", collapse=''), sep = '\t', row.names=T)
 }
 
 
@@ -114,7 +116,7 @@ for(i in 1:length(studyIDs))
 {
   print(i)
   # get study.txt including all runs
-  study <- as.data.frame(t(read.delim(paste0("Output/", studyIDs[i], "/", studyIDs[i], ".txt", collapse = ''), sep = '\t', header = T)))
+  study <- as.data.frame(t(read.delim(paste0("../Output/", studyIDs[i], "/", studyIDs[i], ".txt", collapse = ''), sep = '\t', header = T)))
   hp <- paste(as.character(positive_experiments[grep(studyIDs[i],positive_experiments[,1]),2]), 
     as.character(positive_experiments[grep(studyIDs[i],positive_experiments[,1]),3]), sep="")
 
@@ -128,7 +130,7 @@ for(i in 1:length(studyIDs))
   # monkeyPcynomolgi
   # monkeyPcoatneyi
   
-  coding = as.data.frame(import(paste0("Genomes/annotation/", hp, ".gtf")) %>%
+  coding = as.data.frame(import(paste0("../Genomes/annotation/", hp, ".gtf"))) %>%
       filter(type%in%"exon") %>%
       filter(gene_biotype%in%"protein_coding") %>%
       distinct(gene_id)
@@ -140,7 +142,7 @@ for(i in 1:length(studyIDs))
     tibble::column_to_rownames('gene')
    
   # write the table out
-  write.table(study_coding_genes, paste0(studyIDs[i],"/", studyIDs[i], "_coding_genes.txt", collapse = ''), sep ='\t', row.names = T)
+  write.table(study_coding_genes, paste0("../",studyIDs[i],"/", studyIDs[i], "_coding_genes.txt", collapse = ''), sep ='\t', row.names = T)
 }
 
 ############################## Step 4: Get orthologous groups for each study ########################
@@ -150,13 +152,13 @@ for(i in 1:length(studyIDs))
 # parasite_orthogroups.txt contains only single-copy orthologs extracted from the output of OrthoFinder
 # Its first column contains the orthogroup ID, such as p_OG000001, followed by the corresponding genes from each parasite species
 
-parasite_orthogroups <- read.delim("OrthoFinder/parasite_orthogroups.txt", stringsAsFactors=FALSE) 
-host_orthogroups <- read.delim("OrthoFinder/host_orthogroups.txt", stringsAsFactors=FALSE) 
+parasite_orthogroups <- read.delim("../data/parasite_orthogroups.txt", stringsAsFactors=FALSE) 
+host_orthogroups <- read.delim("../data/host_orthogroups.txt", stringsAsFactors=FALSE) 
 
 for(i in 1:length(studyIDs))
 { print(i)
   #if the study_coding_genes exists, merge with orthogroups (join functions)
-  filepath = paste0(studyIDs[i],"/",studyIDs[i],"_coding_genes.txt", collapse = "")
+  filepath = paste0("../",studyIDs[i],"/",studyIDs[i],"_coding_genes.txt", collapse = "")
   if(file.exists(filepath))
   {
     # find out what host and parasite the study is
@@ -176,7 +178,7 @@ for(i in 1:length(studyIDs))
     ortho.table = merge(file, hp.df, by.x = "Gene", by.y = "Org")
     ortho.table <- data.frame(Gene = ortho.table$Gene, Orthogroup = ortho.table$Orthogroup, ortho.table[,2:(ncol(ortho.table)-1)])
 
-    write.table(ortho.table, paste0(studyIDs[i],"/",studyIDs[i],"_orthogroups.txt", collapse = ""), sep = '\t', row.names = F)
+    write.table(ortho.table, paste0("../",studyIDs[i],"/",studyIDs[i],"_orthogroups.txt", collapse = ""), sep = '\t', row.names = F)
   }
 
 }

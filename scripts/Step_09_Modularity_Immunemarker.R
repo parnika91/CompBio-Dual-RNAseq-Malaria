@@ -16,9 +16,9 @@ dataset <- args[1] #, eg overall or core
 
 if(dataset=="core")
 {
-  data <- readRDS("blood_core_network.rds")
+  data <- readRDS("../results/blood_core_network.rds")
   }else
-  data = readRDS("blood_all_bipartite.rds")
+  data = readRDS("../results/blood_all_bipartite.rds")
 
 ig <- graph_from_data_frame(data, directed = F)
 vnames = c(unique(as.character(data[,1])), unique(as.character(data[,2])))
@@ -44,7 +44,7 @@ for (s in 0:200)
   m <- c(m, modularity (ig, memb, weights=NULL))
 } 
 
-png("modularity_betwenness.png", width = 30, height = 10, unit = "cm", res = 300)
+png("../results/modularity_betwenness.png", width = 30, height = 10, unit = "cm", res = 300)
 plot(0:200, m, col="blue",xlab="Modules",ylab="Modularity")
 dev.off()
 
@@ -60,7 +60,7 @@ for (s in 0:200)
   m <- c(m, modularity(ig, memb, weights=NULL))
 } 
 
-png("modularity_fast_greedy.png", width = 30, height = 10, unit = "cm", res = 300)
+png("../results/modularity_fast_greedy.png", width = 30, height = 10, unit = "cm", res = 300)
 plot(0:200, m, col="blue",xlab="Modules",ylab="Modularity")
 dev.off()
 
@@ -77,7 +77,7 @@ for (s in 0:200)
   memb <- cut_at(comm.eig, no=s)
   m <- c(m, modularity (ig, memb, weights=NULL))
 } 
-png("modularity_leading_eigen.png", width = 30, height = 10, unit = "cm", res = 300)
+png("../results/modularity_leading_eigen.png", width = 30, height = 10, unit = "cm", res = 300)
 plot(0:200, m, col="blue",xlab="Modules",ylab="Modularity")
 dev.off()
 
@@ -109,8 +109,8 @@ for(j in names(markers))
 }
 
 # convert commSummary to human ens IDs
-pOG <- read.delim("parasite_orthogroups.txt", stringsAsFactors=FALSE)
-hOG <- read.delim("host_orthogroups.txt", stringsAsFactors=FALSE)
+pOG <- read.delim("../data/parasite_orthogroups.txt", stringsAsFactors=FALSE)
+hOG <- read.delim("../data/host_orthogroups.txt", stringsAsFactors=FALSE)
 
 ens <- c()
 for(i in 1:nrow(commSummary))
@@ -133,7 +133,7 @@ for(i in 1:nrow(clusters))
     if(any(ensIDs[[j]]$GENEID %in% clusters[i,1]))
 	    clusters[i,"Marker"] <- j
 
-write.csv(clusters, paste0(dataset, "_betweenness_communities.csv", collapse = ''), row.names = F, quote = F)
+write.csv(clusters, paste0("../results/", dataset, "_betweenness_communities.csv", collapse = ''), row.names = F, quote = F)
 
 # calculate the enrichment of each a cell type
 all_host_genes <- hOG[, "human"]

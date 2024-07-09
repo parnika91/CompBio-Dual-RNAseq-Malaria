@@ -14,7 +14,7 @@ studies <- c("blood_all",
   "SRP118827_all", "SRP116793_all", "SRP118996_all", "SRP116593_int", "SRP108356_str", "SRP118503_int")
 
 for(i in studies)
-  readRDS(paste0(substr(i, 1, 9), "/cor/", i, "_bipartite.rds", collapse = "")) %>%
+  readRDS(paste0("../results/",substr(i, 1, 9), "/cor/", i, "_bipartite.rds", collapse = "")) %>%
   unite("hp", ends_with("gene1"):ends_with("gene2"), remove = F) %>%
   select(hp) %>%
   mutate("{substr(i, 1, 9)}_c" := rep(1, length(.))) -> study_list[[i]]
@@ -59,7 +59,7 @@ E(ig)$color[E(ig)$weight == 5] <- 'green'
 E(ig)$color[E(ig)$weight == 6] <- 'navy'
 E(ig)$color[E(ig)$weight == 7] <- 'red'
 
-svg("blood_edge_counter_sampled.svg", width = 50, height = 50)
+svg("../results/blood_edge_counter_sampled.svg", width = 50, height = 50)
 plot(ig, vertex.color = V(ig)$color,
      edge.color = E(ig)$color,
      vertex.size = 2, vertex.label=NA,
@@ -93,15 +93,15 @@ h <- sapply(hp, function(x) x[[1]])
 p <- sapply(hp, function(x) x[[2]])
 blood_core_network <- data.frame(host = h, parasite = p, weight = core_edges$edge_rowsums)
 
-saveRDS(blood_core_network, file = "blood_core_network.rds") # with orthogroups
+saveRDS(blood_core_network, file = "../results/blood_core_network.rds") # with orthogroups
 
 #### convert orthogroups to ensembl and PlasmoDB IDs
-pOG <- read.delim("parasite_orthogroups.txt", stringsAsFactors=FALSE)
-hOG <- read.delim("host_orthogroups.txt", stringsAsFactors=FALSE)
+pOG <- read.delim("../data/parasite_orthogroups.txt", stringsAsFactors=FALSE)
+hOG <- read.delim("../data/host_orthogroups.txt", stringsAsFactors=FALSE)
 
 host <- sapply(h, function(x) hOG[hOG$Orthogroup %in% x, "human"])
 parasite <- sapply(p, function(x) pOG[pOG$Orthogroup %in% x, "Pberghei"])
 
 blood_core_network_IDs <- data.frame(host = host, parasite = parasite, weight = core_edges$edge_rowsums)
-saveRDS(blood_core_network_IDs, file = "blood_core_network_IDs.rds") # with gene IDs
-write.csv(blood_core_network_IDs, "blood_core_network_IDs.csv", row.names = F, quote = F)
+saveRDS(blood_core_network_IDs, file = "../results/blood_core_network_IDs.rds") # with gene IDs
+write.csv(blood_core_network_IDs, "../results/blood_core_network_IDs.csv", row.names = F, quote = F)

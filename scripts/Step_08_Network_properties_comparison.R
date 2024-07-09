@@ -6,13 +6,13 @@ library(igraph)
 library(lsa)
 library(bipartite)
 
-blood_nw <- readRDS("blood_all_bipartite.rds") %>% 
+blood_nw <- readRDS("../results/blood_all_bipartite.rds") %>% 
   rename(gene1 = ends_with("gene1"), 
          gene2 = ends_with("gene2"), 
          cor = ends_with("cor")) %>% 
   select(gene1, gene2, cor)
 
-liver_nw <- read.delim("liver_overall_bipartite.txt")%>% 
+liver_nw <- read.delim("../results/liver_overall_bipartite.txt")%>% 
   rename(gene1 = Host, 
          gene2 = Parasite, 
          cor = Correlation_coef) %>% 
@@ -98,7 +98,7 @@ ggplot(blood_liver_host_degree, aes(degree, fill = type)) +
   theme(legend.position="none") +
   scale_fill_manual(values=c("darkgoldenrod1", "darkolivegreen3")) +
   ggtitle("Degree distribution of host genes in blood and liver networks")
-ggsave("blood_liver_host_degree_dist.png", width = 20, height = 10, units = "cm", dpi = 300)
+ggsave("../results/blood_liver_host_degree_dist.png", width = 20, height = 10, units = "cm", dpi = 300)
 #---
 blood_para_degree$type = rep("blood_para_degree", nrow(blood_para_degree))
 liver_para_degree$type = rep("liver_para_degree", nrow(liver_para_degree))
@@ -116,7 +116,7 @@ ggplot(blood_liver_para_degree, aes(degree, fill = type)) +
   theme(legend.position="none") +
   scale_fill_manual(values=c("darkgoldenrod1", "darkolivegreen3")) +
   ggtitle("Degree distribution of parasite genes in blood and liver networks")
-ggsave("blood_liver_para_degree_dist.png", width = 20, height = 10, units = "cm", dpi = 300)
+ggsave("../results/blood_liver_para_degree_dist.png", width = 20, height = 10, units = "cm", dpi = 300)
 
 #--eigen EC
 blood_host_eigen$type = rep("blood_host_eigen", nrow(blood_host_eigen))
@@ -135,7 +135,7 @@ ggplot(blood_liver_host_eigen, aes(EC, fill = type)) +
   theme(legend.position="none") +
   scale_fill_manual(values=c("darkorchid3", "burlywood1")) +
   ggtitle("Eigenvector centrality (EC) distribution of host genes\nin blood and liver networks")
-ggsave("blood_liver_host_eigen_dist.png", width = 20, height = 10, units = "cm", dpi = 300)
+ggsave("../results/blood_liver_host_eigen_dist.png", width = 20, height = 10, units = "cm", dpi = 300)
 #---
 blood_para_eigen$type = rep("blood_para_eigen", nrow(blood_para_eigen))
 liver_para_eigen$type = rep("liver_para_eigen", nrow(liver_para_eigen))
@@ -153,7 +153,7 @@ ggplot(blood_liver_para_eigen, aes(EC, fill = type)) +
   theme(legend.position="none") +
   scale_fill_manual(values=c("darkorchid3", "burlywood1")) +
   ggtitle("Eigenvector centrality (EC) distribution of parasite genes\nin blood and liver networks")
-ggsave("blood_liver_para_eigen_dist.png", width = 20, height = 10, units = "cm", dpi = 300)
+ggsave("../results/blood_liver_para_eigen_dist.png", width = 20, height = 10, units = "cm", dpi = 300)
 
 
 

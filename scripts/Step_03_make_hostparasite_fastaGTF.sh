@@ -3,13 +3,26 @@
 # to show how host-parasite pair genome sequences files 
 # were concatenated to prevent >100% mapping
 
-cat human.fa Pfalciparum.fa > humanPfalciparum.fa
-cat human.fa Pberghei.fa > humanPberghei.fa
-cat human.fa Pvivax.fa > humanPvivax.fa
+cat human.gtf Pfalciparum.gtf > humanPfalciparum.gtf
+cat human.gtf Pberghei.gtf > humanPberghei.gtf
+cat human.gtf Pvivax.gtf > humanPvivax.gtf
 
-cat mouse.fa Pchabaudi.fa > mousePchabaudi.fa
-cat mouse.fa Pyoelii.fa > mousePyoelii.fa
-cat mouse.fa Pberghei.fa > mousePberghei.fa
+cat mouse.gtf Pchabaudi.gtf > mousePchabaudi.gtf
+cat mouse.gtf Pyoelii.gtf > mousePyoelii.gtf
+cat mouse.gtf Pberghei.gtf > mousePberghei.gtf
 
-cat monkey.fa Pcoatneyi.fa > monkeyPcoatneyi.fa
-cat monkey.fa Pcynomolgi.fa > monkeyPcynomolgi.fa
+cat monkey.gtf Pcoatneyi.gtf > monkeyPcoatneyi.gtf
+cat monkey.gtf Pcynomolgi.gtf > monkeyPcynomolgi.gtf
+
+# same for gtf files
+
+cat human.gtf Pfalciparum.gtf > humanPfalciparum.gtf
+cat human.gtf Pberghei.gtf > humanPberghei.gtf
+cat human.gtf Pvivax.gtf > humanPvivax.gtf
+
+cat mouse.gtf Pchabaudi.gtf > mousePchabaudi.gtf
+cat mouse.gtf Pyoelii.gtf > mousePyoelii.gtf
+cat mouse.gtf Pberghei.gtf > mousePberghei.gtf
+
+cat monkey.gtf Pcoatneyi.gtf > monkeyPcoatneyi.gtf
+cat monkey.gtf Pcynomolgi.gtf > monkeyPcynomolgi.gtf
